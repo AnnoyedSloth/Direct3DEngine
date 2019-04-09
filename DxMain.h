@@ -1,5 +1,6 @@
 #pragma once
 #include "Core.h"
+#include "Camera.h"
 
 class DxMain
 {
@@ -9,9 +10,12 @@ private:
 
 	std::vector<Object*> objs;
 
+	Camera* camera = NULL;
+
 	DWORD mouseX;
 	DWORD mouseY;
 
+	HWND hWnd;
 	
 
 
