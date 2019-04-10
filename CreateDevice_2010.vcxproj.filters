@@ -8,11 +8,14 @@
     <Filter Include="DXUT">
       <UniqueIdentifier>{a43c5c25-0e86-4a20-b64a-883785ff74fd}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Objects">
-      <UniqueIdentifier>{643a848f-1331-4886-a98c-5fd5858ff7ee}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Rendering">
       <UniqueIdentifier>{2369b712-8b9e-4617-9293-c19fb0ba5a40}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Utilities">
+      <UniqueIdentifier>{643a848f-1331-4886-a98c-5fd5858ff7ee}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core">
+      <UniqueIdentifier>{b6b26369-b89c-4142-9b4d-a96004c4287a}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -21,33 +24,37 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Main.cpp" />
     <ClCompile Include="DxMain.cpp">
       <Filter>Rendering</Filter>
     </ClCompile>
     <ClCompile Include="Actor.cpp">
-      <Filter>Objects</Filter>
+      <Filter>Utilities</Filter>
     </ClCompile>
     <ClCompile Include="Object.cpp">
-      <Filter>Objects</Filter>
+      <Filter>Utilities</Filter>
     </ClCompile>
     <ClCompile Include="Camera.cpp">
-      <Filter>Rendering</Filter>
+      <Filter>Utilities</Filter>
+    </ClCompile>
+    <ClCompile Include="Main.cpp">
+      <Filter>Core</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Actor.h">
-      <Filter>Objects</Filter>
+      <Filter>Utilities</Filter>
     </ClInclude>
     <ClInclude Include="DxMain.h">
       <Filter>Rendering</Filter>
     </ClInclude>
     <ClInclude Include="Object.h">
-      <Filter>Objects</Filter>
+      <Filter>Utilities</Filter>
     </ClInclude>
-    <ClInclude Include="Core.h" />
     <ClInclude Include="Camera.h">
-      <Filter>Rendering</Filter>
+      <Filter>Utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="Core.h">
+      <Filter>Core</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

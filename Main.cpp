@@ -23,6 +23,12 @@ LRESULT WINAPI MsgProc( HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam )
 {
     switch( msg )
     {
+		case WM_KEYDOWN:
+		{
+			if (wParam== VK_ESCAPE) PostQuitMessage(0);
+			return 0;
+		}
+
         case WM_DESTROY:
             PostQuitMessage( 0 );
             return 0;
@@ -55,7 +61,7 @@ INT WINAPI wWinMain( HINSTANCE hInst, HINSTANCE, LPWSTR, INT )
 	DxMain* dxClass = new DxMain();
 
 	// Initialize Direct3D
-	if (SUCCEEDED(dxClass->InitD3D(hWnd)))
+	if (SUCCEEDED(dxClass->InitD3D(&hWnd)))
 	{
 		// Create the scene geometry
 		if (SUCCEEDED(dxClass->InitGeometry()))

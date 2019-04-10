@@ -23,11 +23,14 @@ public:
 	DxMain();
 	~DxMain();
 
-	HRESULT InitD3D(HWND hWnd);
+	HRESULT InitD3D(HWND* hWnd);
 	HRESULT InitGeometry();
 
 	VOID SetupMatrices();
 	VOID Render();
+	VOID ProcessInput();
+	VOID MouseInput();
+	VOID KeyboardInput();
 
 
 };

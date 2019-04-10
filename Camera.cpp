@@ -2,7 +2,9 @@
 
 Camera::Camera()
 {
-
+	position = D3DXVECTOR3(0.0f, 3.0f, -5.0f);
+	lookAt = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
+	up = D3DXVECTOR3(0.0f, 1.0f, 0.0f);
 }
 
 Camera::~Camera()
@@ -10,16 +12,27 @@ Camera::~Camera()
 
 }
 
-D3DXMATRIXA16* Camera::SetView(D3DXVECTOR3* pos, D3DXVECTOR3* look, D3DXVECTOR3* up)
+D3DXMATRIXA16* Camera::SetView(D3DXVECTOR3* pos, D3DXVECTOR3* look, D3DXVECTOR3* vup)
 {
-	D3DXMatrixLookAtLH(&viewMat, pos, look, up);
+	position = *pos;
+	lookAt = *look;
+	up = *vup;
+	D3DXVec3Normalize(&view, &(lookAt - position));
+	D3DXVec3Cross(&cross, &up, &view);
+
+	D3DXMatrixLookAtLH(&viewMat, &position, &lookAt, &up);
+	D3DXMatrixInverse(&billMat, NULL, &viewMat);
+	billMat._41 = 0.0f;
+	billMat._42 = 0.0f;
+	billMat._43 = 0.0f;
+
 	return &viewMat;
 }
 
 D3DXMATRIXA16* Camera::RotateLocalX(float angle)
 {
 	D3DXMATRIXA16 matRot;
-	D3DXMatrixRotationAxis(&matRot, &D3DXVECTOR3(1,0,0), angle);
+	D3DXMatrixRotationAxis(&matRot, &cross, angle);
 
 	D3DXVECTOR3 newDst;
 	D3DXVec3TransformCoord(&newDst, &view, &matRot);
@@ -60,31 +73,29 @@ D3DXMATRIXA16* Camera::MoveLocalX(float dist)
 	D3DXVECTOR3 newPos = position;
 	D3DXVECTOR3 newDest = lookAt;
 
-	D3DXVec3Cross(&newDest, &up, &lookAt);
-
 	D3DXVECTOR3 move;
-	D3DXVec3Normalize(&move, &newDest);
+	D3DXVec3Normalize(&move, &cross);
 
 	move *= dist;
 	newPos += move;
 	newDest += move;
 
-	return SetView(&position, &newDest, &up);
+	return SetView(&newPos, &newDest, &up);
 }
 
 D3DXMATRIXA16* Camera::MoveLocalY(float dist)
 {
 	D3DXVECTOR3 newPos = position;
-	D3DXVECTOR3 newDest = up;
+	D3DXVECTOR3 newDest = lookAt;
 
 	D3DXVECTOR3 move;
-	D3DXVec3Normalize(&move, &newDest);
+	D3DXVec3Normalize(&move, &up);
 
 	move *= dist;
 	newPos += move;
 	newDest += move;
 
-	return SetView(&position, &newDest, &up);
+	return SetView(&newPos, &newDest, &up);
 }
 
 
@@ -100,6 +111,6 @@ D3DXMATRIXA16* Camera::MoveLocalZ(float dist)
 	newPos += move;
 	newDest += move;
 
-	return SetView(&position, &newDest, &up);
+	return SetView(&newPos, &newDest, &up);
 }
 

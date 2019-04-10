@@ -3,9 +3,7 @@
 
 class Camera
 {
-	D3DXVECTOR3 position;
-	D3DXVECTOR3 lookAt;
-	D3DXVECTOR3 up;
+
 
 	D3DXVECTOR3 view;
 	D3DXVECTOR3 cross;
@@ -16,6 +14,11 @@ class Camera
 public:
 	Camera();
 	~Camera();
+
+	D3DXVECTOR3 position;
+	D3DXVECTOR3 lookAt;
+	D3DXVECTOR3 up;
+
 	D3DXMATRIXA16* GetViewMatrix() { return &viewMat; }
 	D3DXMATRIXA16* GetBillMatrix() { return &billMat; }
 

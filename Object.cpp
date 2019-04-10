@@ -8,12 +8,34 @@ Object::Object()
 	numMaterials = 0L;
 }
 
+Object::Object(D3DXVECTOR3 &loc)
+{
+	mesh = NULL;
+	materials = NULL;
+	textures = NULL;
+	numMaterials = 0L;
+
+	location = loc;
+}
+
+Object::Object(D3DXVECTOR3 &loc, D3DXVECTOR3 &rot, D3DXVECTOR3 &scale)
+{
+	mesh = NULL;
+	materials = NULL;
+	textures = NULL;
+	numMaterials = 0L;
+
+	location = loc;
+	rotation = rot;
+	this->scale = scale;
+}
+
 Object::~Object()
 {
 	if (materials) delete materials;
 }
 
-HRESULT Object::InitGeometry(LPDIRECT3DDEVICE9 d3dDevice)
+HRESULT Object::LoadMesh(LPDIRECT3DDEVICE9 d3dDevice)
 {
 	LPD3DXBUFFER pD3DXMtrlBuffer;
 
@@ -85,12 +107,16 @@ HRESULT Object::InitGeometry(LPDIRECT3DDEVICE9 d3dDevice)
 
 VOID Object::Render(LPDIRECT3DDEVICE9 d3dDevice)
 {
+	
+	D3DXMatrixTranslation(&worldMat, location.x, location.y, location.z);
 	// Rendering of scene objects can happen here
 	for (DWORD i = 0; i < numMaterials; i++)
 	{
 		// Set the material and texture for this subset
+		//d3dDevice->SetTransform
 		d3dDevice->SetMaterial(&materials[i]);
 		d3dDevice->SetTexture(0, textures[i]);
+		d3dDevice->SetTransform(D3DTS_WORLD, &worldMat);
 
 		// Draw the mesh subset
 		mesh->DrawSubset(i);
