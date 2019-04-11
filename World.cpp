@@ -12,25 +12,45 @@ World::~World()
 
 VOID World::Initialize()
 {	
-	objs.push_back(new Actor(D3DXVECTOR3(1, 1, 1)));
-	objs.push_back(new Actor(D3DXVECTOR3(2, 2, 2)));
-	objs.push_back(new Actor(D3DXVECTOR3(3, 3, 3)));
 
-	for (Actor* actor : objs)
-	{
-		actor->BeginPlay();
-	}
+	spawnActor<Actor>(D3DXVECTOR3(1, 1, 1), D3DXVECTOR3(50, 80, 100), D3DXVECTOR3(1, 1, 1));
+	spawnActor<Actor>(D3DXVECTOR3(2, 2, 2), D3DXVECTOR3(90, 0, 0), D3DXVECTOR3(2, 2, 2));
+	spawnActor<Actor>(D3DXVECTOR3(3, 3, 3), D3DXVECTOR3(0, 90, 0), D3DXVECTOR3(1, 1, 1));
+	//spawnActor<Object>(D3DXVECTOR3(3, 3, 3), D3DXVECTOR3(1, 1, 1), D3DXVECTOR3(1, 1, 1));
+
+
+	//for (Actor* actor : objs)
+	//{
+	//	actor->BeginPlay();
+	//}
 }
 
 VOID World::Render(LPDIRECT3DDEVICE9 d3dDevice)
 {
-	using namespace std;
 	time.CalculateDeltaTime();
 	
 	for (unsigned int a = 0; a < objs.size(); ++a)
 	{
-		objs[a]->Render(d3dDevice);
 		objs[a]->Tick(time.deltaTime);
+		objs[a]->Render(d3dDevice);
 	}
 }
 
+// Factory function which spawn derived classes of Actor
+template <class T>
+Actor* World::spawnActor(D3DXVECTOR3 &loc, D3DXVECTOR3 &rot, D3DXVECTOR3 &scale)
+{
+	// Check template class is derived by Actor class or not
+	if (std::is_base_of<T, Actor*>::value) return nullptr;
+
+	Actor* newActor = new T();
+
+	newActor->setLocation(loc);
+	newActor->setRotation(rot);
+	newActor->setScale(scale);
+	newActor->BeginPlay();
+	
+	objs.push_back(newActor);
+
+	return newActor;
+}

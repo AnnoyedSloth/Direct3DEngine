@@ -53,9 +53,10 @@ INT WINAPI wWinMain( HINSTANCE hInst, HINSTANCE, LPWSTR, INT )
     };
     RegisterClassEx( &wc );
 
+
     // Create the application's window
     HWND hWnd = CreateWindow( L"D3D Project", L"D3D Project",
-                              WS_OVERLAPPEDWINDOW, 800, 300, 500, 500,
+                              WS_OVERLAPPEDWINDOW, 500, 150, 700, 700,
                               NULL, NULL, wc.hInstance, NULL );
 
 	DxMain* dxClass = new DxMain();

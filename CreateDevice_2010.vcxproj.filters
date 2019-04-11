@@ -17,6 +17,12 @@
     <Filter Include="Managers">
       <UniqueIdentifier>{07fa9b15-5635-41f3-88cb-2a83e93820f9}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Actors">
+      <UniqueIdentifier>{2d50feae-061d-4341-9299-ce09e9334d47}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Terrain">
+      <UniqueIdentifier>{cb4773c3-2ada-42f1-85a7-131cbb3b8ca8}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="DXUT\Optional\directx.ico">
@@ -42,14 +48,14 @@
     <ClCompile Include="World.cpp">
       <Filter>Utilities</Filter>
     </ClCompile>
-    <ClCompile Include="Terrain.cpp">
-      <Filter>Utilities</Filter>
-    </ClCompile>
     <ClCompile Include="TimeManager.cpp">
       <Filter>Managers</Filter>
     </ClCompile>
     <ClCompile Include="InputManager.cpp">
       <Filter>Managers</Filter>
+    </ClCompile>
+    <ClCompile Include="Terrain.cpp">
+      <Filter>Terrain</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -71,14 +77,14 @@
     <ClInclude Include="World.h">
       <Filter>Utilities</Filter>
     </ClInclude>
-    <ClInclude Include="Terrain.h">
-      <Filter>Utilities</Filter>
-    </ClInclude>
     <ClInclude Include="TimeManager.h">
       <Filter>Managers</Filter>
     </ClInclude>
     <ClInclude Include="InputManager.h">
       <Filter>Managers</Filter>
+    </ClInclude>
+    <ClInclude Include="Terrain.h">
+      <Filter>Terrain</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

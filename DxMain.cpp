@@ -65,8 +65,6 @@ HRESULT DxMain::Initialize()
 {
 	world->Initialize();
 
-
-
 	for (unsigned int a = 0; a < world->objs.size(); ++a)
 	{
 		world->objs[a]->LoadMesh(d3dDevice);
@@ -90,6 +88,7 @@ VOID DxMain::SetupMatrices()
 	d3dDevice->SetTransform(D3DTS_PROJECTION, &matProj);
 }
 
+// Calculate the moving of mouse pointer using viewport axis
 VOID DxMain::MouseInput()
 {
 	POINT pt;
@@ -113,6 +112,7 @@ VOID DxMain::MouseInput()
 	mouseY = pt.y;
 }
 
+// Process keyboard inputs
 VOID DxMain::KeyboardInput()
 {
 	if (GetAsyncKeyState('W')) camera->MoveLocalZ(.1f);
@@ -123,6 +123,7 @@ VOID DxMain::KeyboardInput()
 	if (GetAsyncKeyState('E')) camera->MoveLocalY(.1f);
 }
 
+// Process keyboard & mouse inputs
 VOID DxMain::ProcessInput()
 {
 	MouseInput();
@@ -134,16 +135,19 @@ VOID DxMain::Render()
 	if (NULL == d3dDevice)
 		return;
 
-	// Clear the backbuffer to a blue color
+	// Clear backbuffer as white colour and clear ZBuffer
 	d3dDevice->Clear(0, NULL, D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER, D3DCOLOR_XRGB(255, 255, 255), 1.0f, 0);
 
 	if (SUCCEEDED(d3dDevice->BeginScene()))
 	{
+		// Keyboard & Mouse input process
 		ProcessInput();
-		SetupMatrices();
 
+		// Local & World transformation
 		world->Render(d3dDevice);
 
+		// Camera & Projection transformation
+		SetupMatrices();
 		
 		// End the scene
 		d3dDevice->EndScene();

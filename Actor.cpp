@@ -7,5 +7,5 @@ void Actor::BeginPlay()
 
 void Actor::Tick(float deltaTime)
 {
-
+	
 }

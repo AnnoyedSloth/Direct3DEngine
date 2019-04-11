@@ -101,8 +101,22 @@ HRESULT Object::LoadMesh(LPDIRECT3DDEVICE9 d3dDevice)
 
 VOID Object::Render(LPDIRECT3DDEVICE9 d3dDevice)
 {
-	
-	D3DXMatrixTranslation(&worldMat, location.x, location.y, location.z);
+
+
+	D3DXMATRIXA16 s;
+	D3DXMatrixScaling(&s, scale.x, scale.y, scale.z);
+	D3DXMATRIXA16 r;
+	D3DXMatrixRotationYawPitchRoll(&r, rotation.x, rotation.y, rotation.z);
+	D3DXMATRIXA16 l;
+	D3DXMatrixTranslation(&l, location.x, location.y, location.z);
+
+
+	D3DXMatrixIdentity(&worldMat);
+	//D3DXMatrixMultiply(&worldMat, &worldMat, &s);
+	//D3DXMatrixMultiply(&worldMat, &worldMat, &r);
+	//D3DXMatrixMultiply(&worldMat, &worldMat, &l);
+
+	worldMat = s * r * l;
 	// Rendering of scene objects can happen here
 	for (DWORD i = 0; i < numMaterials; i++)
 	{

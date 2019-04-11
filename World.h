@@ -1,9 +1,11 @@
 #pragma once
 
-#include "Core.h"
 #include "TimeManager.h"
 #include "Terrain.h"
 #include "Actor.h"
+#include "Core.h"
+
+class Camera;
 
 class World
 {
@@ -18,7 +20,8 @@ public:
 	std::vector<Actor*> objs;
 	
 	VOID Initialize();
-
-
 	VOID Render(LPDIRECT3DDEVICE9 d3dDevice);
+
+	template <class T>
+	Actor* spawnActor(D3DXVECTOR3 &loc, D3DXVECTOR3 &rot, D3DXVECTOR3 &scale);
 };
