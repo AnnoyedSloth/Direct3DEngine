@@ -13,16 +13,11 @@ World::~World()
 VOID World::Initialize()
 {	
 
-	spawnActor<Actor>(D3DXVECTOR3(1, 1, 1), D3DXVECTOR3(50, 80, 100), D3DXVECTOR3(1, 1, 1));
-	spawnActor<Actor>(D3DXVECTOR3(2, 2, 2), D3DXVECTOR3(90, 0, 0), D3DXVECTOR3(2, 2, 2));
-	spawnActor<Actor>(D3DXVECTOR3(3, 3, 3), D3DXVECTOR3(0, 90, 0), D3DXVECTOR3(1, 1, 1));
+	spawnActor<Actor>(D3DXVECTOR3(0, 0, 5), D3DXVECTOR3(50, 80, 100), D3DXVECTOR3(1, 1, 1));
+	spawnActor<Actor>(D3DXVECTOR3(0, 10, 5), D3DXVECTOR3(90, 0, 0), D3DXVECTOR3(2, 2, 2));
+	spawnActor<Actor>(D3DXVECTOR3(0, 0, 10), D3DXVECTOR3(0, 90, 0), D3DXVECTOR3(1, 1, 1));
 	//spawnActor<Object>(D3DXVECTOR3(3, 3, 3), D3DXVECTOR3(1, 1, 1), D3DXVECTOR3(1, 1, 1));
 
-
-	//for (Actor* actor : objs)
-	//{
-	//	actor->BeginPlay();
-	//}
 }
 
 VOID World::Render(LPDIRECT3DDEVICE9 d3dDevice)

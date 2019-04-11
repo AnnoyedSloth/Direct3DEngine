@@ -2,7 +2,7 @@
 
 Camera::Camera()
 {
-	position = D3DXVECTOR3(0.0f, 3.0f, -5.0f);
+	position = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
 	lookAt = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
 	up = D3DXVECTOR3(0.0f, 1.0f, 0.0f);
 }
