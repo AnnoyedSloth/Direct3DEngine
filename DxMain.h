@@ -1,6 +1,8 @@
 #pragma once
 #include "Core.h"
 #include "Camera.h"
+#include "TimeManager.h"
+#include "World.h"
 
 class DxMain
 {
@@ -8,7 +10,7 @@ private:
 	LPDIRECT3D9 d3d;
 	LPDIRECT3DDEVICE9 d3dDevice;
 
-	std::vector<Object*> objs;
+	World* world;
 
 	Camera* camera = NULL;
 
@@ -24,7 +26,7 @@ public:
 	~DxMain();
 
 	HRESULT InitD3D(HWND* hWnd);
-	HRESULT InitGeometry();
+	HRESULT Initialize();
 
 	VOID SetupMatrices();
 	VOID Render();

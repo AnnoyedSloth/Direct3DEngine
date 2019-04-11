@@ -15,7 +15,7 @@ public:
 	D3DXVECTOR3 rotation;
 	D3DXVECTOR3 scale;
 
-	Object();
+	Object() {};
 	Object(D3DXVECTOR3 &loc);
 	Object(D3DXVECTOR3 &loc, D3DXVECTOR3 &rot, D3DXVECTOR3 &scale);
 	virtual ~Object();

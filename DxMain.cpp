@@ -18,6 +18,8 @@ DxMain::DxMain()
 	mouseY = 0;
 
 	hWnd = NULL;
+
+	world = new World();
 }
 
 DxMain::~DxMain()
@@ -53,22 +55,23 @@ HRESULT DxMain::InitD3D(HWND* hWnd)
 
 	// Device state would normally be set here
 
-	InitGeometry();
+	//InitGeometry();
 
 
 	return S_OK;
 }
 
-HRESULT DxMain::InitGeometry()
+HRESULT DxMain::Initialize()
 {
-	objs.push_back(new Object(D3DXVECTOR3(1, 1, 1)));
-	objs.push_back(new Object(D3DXVECTOR3(2, 2, 2)));
-	objs.push_back(new Object(D3DXVECTOR3(3, 3, 3)));
+	world->Initialize();
 
-	for (Object* obj : objs)
+
+
+	for (unsigned int a = 0; a < world->objs.size(); ++a)
 	{
-		obj->LoadMesh(d3dDevice);
+		world->objs[a]->LoadMesh(d3dDevice);
 	}
+
 	return S_OK;
 }
 
@@ -139,10 +142,8 @@ VOID DxMain::Render()
 		ProcessInput();
 		SetupMatrices();
 
-		for (Object* obj : objs)
-		{
-			obj->Render(d3dDevice);
-		}
+		world->Render(d3dDevice);
+
 		
 		// End the scene
 		d3dDevice->EndScene();

@@ -1,12 +1,6 @@
 #include "Object.h"
 
-Object::Object()
-{
-	mesh = NULL;
-	materials = NULL;
-	textures = NULL;
-	numMaterials = 0L;
-}
+
 
 Object::Object(D3DXVECTOR3 &loc)
 {

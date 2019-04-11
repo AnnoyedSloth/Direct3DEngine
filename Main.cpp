@@ -64,7 +64,7 @@ INT WINAPI wWinMain( HINSTANCE hInst, HINSTANCE, LPWSTR, INT )
 	if (SUCCEEDED(dxClass->InitD3D(&hWnd)))
 	{
 		// Create the scene geometry
-		if (SUCCEEDED(dxClass->InitGeometry()))
+		if (SUCCEEDED(dxClass->Initialize()))
 		{
 			// Show the window
 			ShowWindow(hWnd, SW_SHOWDEFAULT);
