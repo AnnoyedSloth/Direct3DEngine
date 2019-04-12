@@ -16,7 +16,7 @@ VOID World::Initialize()
 	spawnActor<Actor>(D3DXVECTOR3(0, 0, 5), D3DXVECTOR3(50, 80, 100), D3DXVECTOR3(1, 1, 1));
 	spawnActor<Actor>(D3DXVECTOR3(0, 10, 5), D3DXVECTOR3(90, 0, 0), D3DXVECTOR3(2, 2, 2));
 	spawnActor<Actor>(D3DXVECTOR3(0, 0, 10), D3DXVECTOR3(0, 90, 0), D3DXVECTOR3(1, 1, 1));
-	//spawnActor<Object>(D3DXVECTOR3(3, 3, 3), D3DXVECTOR3(1, 1, 1), D3DXVECTOR3(1, 1, 1));
+	spawnActor<Terrain>(D3DXVECTOR3(3, 3, 3), D3DXVECTOR3(1, 1, 1), D3DXVECTOR3(1, 1, 1));
 
 }
 
@@ -36,16 +36,19 @@ template <class T>
 Actor* World::spawnActor(D3DXVECTOR3 &loc, D3DXVECTOR3 &rot, D3DXVECTOR3 &scale)
 {
 	// Check template class is derived by Actor class or not
-	if (std::is_base_of<T, Actor*>::value) return nullptr;
+	if (!(std::is_base_of<Actor , T>::value)) return nullptr;
 
-	Actor* newActor = new T();
+	else
+	{
+		Actor* newActor = new T();
 
-	newActor->setLocation(loc);
-	newActor->setRotation(rot);
-	newActor->setScale(scale);
-	newActor->BeginPlay();
-	
-	objs.push_back(newActor);
+		newActor->setLocation(loc);
+		newActor->setRotation(rot);
+		newActor->setScale(scale);
+		newActor->BeginPlay();
 
-	return newActor;
+		objs.push_back(newActor);
+		return newActor;
+	}
+
 }
