@@ -63,7 +63,7 @@ HRESULT DxMain::InitD3D(HWND* hWnd)
 
 HRESULT DxMain::Initialize()
 {
-	world->Initialize();
+	world->Initialize(d3dDevice);
 
 	for (unsigned int a = 0; a < world->objs.size(); ++a)
 	{
@@ -75,14 +75,11 @@ HRESULT DxMain::Initialize()
 
 VOID DxMain::SetupMatrices()
 {
-	// Set up world matrix
-	D3DXMATRIXA16 matWorld;
-	D3DXMatrixRotationY(&matWorld, timeGetTime() / 1000.0f);
-	d3dDevice->SetTransform(D3DTS_WORLD, &matWorld);
-
+	// Setup view transform
 	D3DXMatrixLookAtLH(camera->GetViewMatrix(), &camera->position, &camera->lookAt, &camera->up);
 	d3dDevice->SetTransform(D3DTS_VIEW, camera->GetViewMatrix());
 
+	// Setup projection transform
 	D3DXMATRIXA16 matProj;
 	D3DXMatrixPerspectiveFovLH(&matProj, D3DX_PI / 4, 1.0f, 1.0f, 100.0f);
 	d3dDevice->SetTransform(D3DTS_PROJECTION, &matProj);
@@ -143,10 +140,10 @@ VOID DxMain::Render()
 		// Keyboard & Mouse input process
 		ProcessInput();
 
-		// Local & World transformation
-		world->Render(d3dDevice);
+		// Local & World & Camera transformation
+		world->Render();
 
-		// Camera & Projection transformation
+		// View & Projection transformation
 		SetupMatrices();
 		
 		// End the scene

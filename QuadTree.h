@@ -24,7 +24,7 @@ class QuadTree
 
 	BOOL subDivide();
 
-	int generateIndex(int tris, LPVOID index, TERRAINVERTEX* heightMap, Frustum* frustum, float ratio);
+	int generateTriIndex(int tris, LPVOID index, TERRAINVERTEX* heightMap, Frustum* frustum, float ratio);
 
 	float getDistance(D3DXVECTOR3* pv1, D3DXVECTOR3* pv2)
 	{

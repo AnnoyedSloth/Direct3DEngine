@@ -9,18 +9,20 @@ class Camera;
 
 class World
 {
-	Terrain* terrain;
 	TimeManager time;
-
+	LPDIRECT3DDEVICE9 d3dDevice;
 
 public:
 	World();
 	~World();
 
+	Terrain* terrain;
 	std::vector<Actor*> objs;
 	
-	VOID Initialize();
-	VOID Render(LPDIRECT3DDEVICE9 d3dDevice);
+	VOID Initialize(LPDIRECT3DDEVICE9 d3dDevice);
+	VOID Render();
+
+	const TimeManager* getTime() const { return &time; }
 
 	template <class T>
 	Actor* spawnActor(D3DXVECTOR3 &loc, D3DXVECTOR3 &rot, D3DXVECTOR3 &scale);

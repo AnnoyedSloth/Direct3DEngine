@@ -37,7 +37,7 @@ public:
 	D3DXMATRIXA16* RotateLocalY(float angle);
 	D3DXMATRIXA16* RotateLocalZ(float angle);
 
-	//D3DXMATRIXA16* MoveTo(D3DXVECTOR3* pv);
+	D3DXMATRIXA16* MoveTo(D3DXVECTOR3* pv);
 	D3DXMATRIXA16* MoveLocalX(float dist);
 	D3DXMATRIXA16* MoveLocalY(float dist);
 	D3DXMATRIXA16* MoveLocalZ(float dist);

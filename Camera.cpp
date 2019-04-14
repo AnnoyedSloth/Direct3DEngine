@@ -114,3 +114,10 @@ D3DXMATRIXA16* Camera::MoveLocalZ(float dist)
 	return SetView(&newPos, &newDest, &up);
 }
 
+D3DXMATRIXA16* Camera::MoveTo(D3DXVECTOR3* pv)
+{
+	D3DXVECTOR3 dv = *pv - position;
+	position = *pv;
+	lookAt += dv;
+	return SetView(&position, &lookAt, &up);
+}

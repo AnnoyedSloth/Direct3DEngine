@@ -31,6 +31,7 @@ Object::~Object()
 
 HRESULT Object::LoadMesh(LPDIRECT3DDEVICE9 d3dDevice)
 {
+	this->d3dDevice = d3dDevice;
 	LPD3DXBUFFER pD3DXMtrlBuffer;
 
 	// Load the mesh from the specified file
@@ -99,10 +100,8 @@ HRESULT Object::LoadMesh(LPDIRECT3DDEVICE9 d3dDevice)
 	return S_OK;
 }
 
-VOID Object::Render(LPDIRECT3DDEVICE9 d3dDevice)
+VOID Object::Render()
 {
-
-
 	D3DXMATRIXA16 s;
 	D3DXMatrixScaling(&s, scale.x, scale.y, scale.z);
 	D3DXMATRIXA16 r;
@@ -110,11 +109,7 @@ VOID Object::Render(LPDIRECT3DDEVICE9 d3dDevice)
 	D3DXMATRIXA16 l;
 	D3DXMatrixTranslation(&l, location.x, location.y, location.z);
 
-
 	D3DXMatrixIdentity(&worldMat);
-	//D3DXMatrixMultiply(&worldMat, &worldMat, &s);
-	//D3DXMatrixMultiply(&worldMat, &worldMat, &r);
-	//D3DXMatrixMultiply(&worldMat, &worldMat, &l);
 
 	worldMat = s * r * l;
 	// Rendering of scene objects can happen here

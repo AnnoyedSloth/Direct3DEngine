@@ -5,6 +5,7 @@ class World;
 
 class Object
 {
+	LPDIRECT3DDEVICE9	d3dDevice;
 	LPD3DXMESH          mesh;
 	D3DMATERIAL9*       materials;
 	LPDIRECT3DTEXTURE9* textures;
@@ -25,7 +26,7 @@ public:
 	virtual ~Object();
 
 	HRESULT LoadMesh(LPDIRECT3DDEVICE9 d3dDevice);
-	VOID Render(LPDIRECT3DDEVICE9 d3dDevice);
+	VOID Render();
 
 	void setLocation(D3DXVECTOR3 &loc) { location = loc; }
 	void setRotation(D3DXVECTOR3 &rot) { rotation = rot; }

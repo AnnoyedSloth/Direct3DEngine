@@ -1,5 +1,14 @@
 #include "QuadTree.h"
 
+BOOL IsInRect(RECT* rc, POINT pt)
+{
+	if ((rc->left <= pt.x) && (pt.x <= rc->right) &&
+		(rc->bottom <= pt.y) && (pt.y <= rc->top))
+		return TRUE;
+
+	return FALSE;
+}
+
 QuadTree::QuadTree(int cx, int cy)
 {
 	parent = NULL;
@@ -21,6 +30,7 @@ QuadTree::QuadTree(int cx, int cy)
 
 QuadTree::QuadTree(QuadTree* parent)
 {
+	// Set parameter as parent
 	this->parent = parent;
 	center = 0;
 
@@ -87,7 +97,7 @@ BOOL QuadTree::subDivide()
 	return TRUE;
 }
 
-int QuadTree::generateIndex(int tris, LPVOID index, TERRAINVERTEX* heightMap, Frustum* frustum, float ratio)
+int QuadTree::generateTriIndex(int tris, LPVOID index, TERRAINVERTEX* heightMap, Frustum* frustum, float ratio)
 {
 	if (culled) culled == FALSE; return tris;
 
@@ -179,10 +189,10 @@ int QuadTree::generateIndex(int tris, LPVOID index, TERRAINVERTEX* heightMap, Fr
 	}
 
 	// 자식 노드들 검색
-	if (child[TL]) tris = child[TL]->generateIndex(tris, index, heightMap, frustum, ratio);
-	if (child[TR]) tris = child[TR]->generateIndex(tris, index, heightMap, frustum, ratio);
-	if (child[BL]) tris = child[BL]->generateIndex(tris, index, heightMap, frustum, ratio);
-	if (child[BR]) tris = child[BR]->generateIndex(tris, index, heightMap, frustum, ratio);
+	if (child[TL]) tris = child[TL]->generateTriIndex(tris, index, heightMap, frustum, ratio);
+	if (child[TR]) tris = child[TR]->generateTriIndex(tris, index, heightMap, frustum, ratio);
+	if (child[BL]) tris = child[BL]->generateTriIndex(tris, index, heightMap, frustum, ratio);
+	if (child[BR]) tris = child[BR]->generateTriIndex(tris, index, heightMap, frustum, ratio);
 
 	return tris;
 
@@ -288,4 +298,122 @@ int	QuadTree::getNodeIndex(int ed, int cx, int& _0, int& _1, int& _2, int& _3)
 	if (!IS_IN_RANGE(n, 0, cx * cx - 1)) return -1;
 
 	return n;
+}
+
+QuadTree* QuadTree::findNode(TERRAINVERTEX* pHeightMap, int _0, int _1, int _2, int _3)
+{
+	QuadTree*	p = NULL;
+	// 일치하는 노드라면 노드값을 리턴
+	if ((corner[0] == _0) && (corner[1] == _1) && (corner[2] == _2) && (corner[3] == _3))
+		return this;
+
+	// 자식 노드가 있가?
+	if (child[0])
+	{
+		RECT	rc;
+		POINT	pt;
+		int n = (_0 + _1 + _2 + _3) / 4;
+
+		// 현재 맵상에서의 위치
+		pt.x = (int)pHeightMap[n].p.x;
+		pt.y = (int)pHeightMap[n].p.z;
+
+		// 4개의 코너값을 기준으로 자식노드의 맵 점유범위를 얻는다.
+		SetRect(&rc, (int)pHeightMap[child[0]->corner[TL]].p.x,
+			(int)pHeightMap[child[0]->corner[TL]].p.z,
+			(int)pHeightMap[child[0]->corner[BR]].p.x,
+			(int)pHeightMap[child[0]->corner[BR]].p.z);
+		// pt값이 점유범위안에 있다면 자식노드로 들어간다.
+		if (IsInRect(&rc, pt))
+			return child[0]->findNode(pHeightMap, _0, _1, _2, _3);
+
+		SetRect(&rc, (int)pHeightMap[child[1]->corner[TL]].p.x,
+			(int)pHeightMap[child[1]->corner[TL]].p.z,
+			(int)pHeightMap[child[1]->corner[BR]].p.x,
+			(int)pHeightMap[child[1]->corner[BR]].p.z);
+		if (IsInRect(&rc, pt))
+			return child[1]->findNode(pHeightMap, _0, _1, _2, _3);
+
+		SetRect(&rc, (int)pHeightMap[child[2]->corner[TL]].p.x,
+			(int)pHeightMap[child[2]->corner[TL]].p.z,
+			(int)pHeightMap[child[2]->corner[BR]].p.x,
+			(int)pHeightMap[child[2]->corner[BR]].p.z);
+		if (IsInRect(&rc, pt))
+			return child[2]->findNode(pHeightMap, _0, _1, _2, _3);
+
+		SetRect(&rc, (int)pHeightMap[child[3]->corner[TL]].p.x,
+			(int)pHeightMap[child[3]->corner[TL]].p.z,
+			(int)pHeightMap[child[3]->corner[BR]].p.x,
+			(int)pHeightMap[child[3]->corner[BR]].p.z);
+		if (IsInRect(&rc, pt))
+			return child[3]->findNode(pHeightMap, _0, _1, _2, _3);
+	}
+
+	return NULL;
+}
+
+void QuadTree::buildNeighborNode(QuadTree* pRoot, TERRAINVERTEX* pHeightMap, int cx)
+{
+	int				n;
+	int				_0, _1, _2, _3;
+
+	for (int i = 0; i < 4; i++)
+	{
+		_0 = corner[0];
+		_1 = corner[1];
+		_2 = corner[2];
+		_3 = corner[3];
+		// 이웃노드의 4개 코너값을 얻는다.
+		n = getNodeIndex(i, cx, _0, _1, _2, _3);
+		// 코너값으로 이웃노드의 포인터를 얻어온다.
+		if (n >= 0) neighbor[i] = pRoot->findNode(pHeightMap, _0, _1, _2, _3);
+	}
+
+	// 자식노드로 재귀호출
+	if (child[0])
+	{
+		child[0]->buildNeighborNode(pRoot, pHeightMap, cx);
+		child[1]->buildNeighborNode(pRoot, pHeightMap, cx);
+		child[2]->buildNeighborNode(pRoot, pHeightMap, cx);
+		child[3]->buildNeighborNode(pRoot, pHeightMap, cx);
+	}
+}
+
+// 쿼드트리를 만든다.(Build()함수에서 불린다)
+BOOL QuadTree::buildQuadTree(TERRAINVERTEX* pHeightMap)
+{
+	if (subDivide())
+	{
+		// 좌측상단과, 우측 하단의 거리를 구한다.
+		D3DXVECTOR3 v = *((D3DXVECTOR3*)(pHeightMap + corner[TL])) -
+			*((D3DXVECTOR3*)(pHeightMap + corner[BR]));
+		// v의 거리값이 이 노드를 감싸는 경계구의 지름이므로, 
+		// 2로 나누어 반지름을 구한다.
+		radius = D3DXVec3Length(&v) / 2.0f;
+		child[TL]->buildQuadTree(pHeightMap);
+		child[TR]->buildQuadTree(pHeightMap);
+		child[BL]->buildQuadTree(pHeightMap);
+		child[BR]->buildQuadTree(pHeightMap);
+	}
+	return TRUE;
+}
+
+
+// QuadTree를 구축한다.
+BOOL QuadTree::build(TERRAINVERTEX* pHeightMap)
+{
+	// 쿼드트리 구축
+	buildQuadTree(pHeightMap);
+	// 이웃노드 구축
+	buildNeighborNode(this, pHeightMap, corner[TR] + 1);
+	return TRUE;
+}
+
+//	삼각형의 인덱스를 만들고, 출력할 삼각형의 개수를 반환한다.
+int	QuadTree::generateIndex(LPVOID pIndex, TERRAINVERTEX* pHeightMap, Frustum* pFrustum, float fLODRatio)
+{
+	// 먼저 프러스텀 컬링을 해서 컬링될 노드들을 배제한다.
+	frustumCull(pHeightMap, pFrustum);
+	// 출력할 폴리곤의 인덱스를 생성한뒤, 폴리곤의 개수를 리턴한다.
+	return generateTriIndex(0, pIndex, pHeightMap, pFrustum, fLODRatio);
 }
