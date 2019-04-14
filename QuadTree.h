@@ -3,6 +3,7 @@
 #include "TerrainVertex.h"
 #include "Frustum.h"
 
+#define IS_IN_RANGE(value,r0,r1) (( ((r0) <= (value)) && ((value) <= (r1)) ) ? 1 : 0)
 
 class QuadTree
 {

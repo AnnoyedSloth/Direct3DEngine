@@ -379,10 +379,12 @@
     <ClCompile Include="Actor.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="dib.cpp" />
+    <ClCompile Include="Frustum.cpp" />
     <ClCompile Include="InputManager.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="DxMain.cpp" />
     <ClCompile Include="Object.cpp" />
+    <ClCompile Include="QuadTree.cpp" />
     <ClCompile Include="Terrain.cpp" />
     <ClCompile Include="TimeManager.cpp" />
     <ClCompile Include="World.cpp" />
@@ -395,10 +397,13 @@
     <ClInclude Include="Core.h" />
     <ClInclude Include="dib.h" />
     <ClInclude Include="DxMain.h" />
+    <ClInclude Include="Frustum.h" />
     <ClInclude Include="InputManager.h" />
     <ClInclude Include="Object.h" />
+    <ClInclude Include="QuadTree.h" />
     <CLInclude Include="resource.h" />
     <ClInclude Include="Terrain.h" />
+    <ClInclude Include="TerrainVertex.h" />
     <ClInclude Include="TimeManager.h" />
     <ClInclude Include="World.h" />
     <ResourceCompile Include="CreateDevice.rc" />
