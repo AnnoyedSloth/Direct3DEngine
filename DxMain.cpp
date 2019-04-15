@@ -7,6 +7,9 @@
 #include "DxMain.h"
 #include "Camera.h"
 
+
+D3DXMATRIXA16 matProj;
+
 DxMain::DxMain()
 {
 	d3d = NULL;
@@ -72,21 +75,26 @@ HRESULT DxMain::Initialize()
 		world->objs[a]->loadMesh(d3dDevice);
 	}
 
+	// Setup projection transform
+	D3DXMatrixPerspectiveFovLH(&matProj, D3DX_PI / 4, 1.0f, 1.0f, 1000.0f);
+	d3dDevice->SetTransform(D3DTS_PROJECTION, &matProj);
+
+	D3DXMatrixPerspectiveFovLH(&matProj, D3DX_PI / 4, 1.0f, 1.0f, 200.0f);
+
 	return S_OK;
 }
 
 VOID DxMain::SetupMatrices()
 {
-	// Setup view transform
-	D3DXMatrixLookAtLH(camera->GetViewMatrix(), &camera->position, &camera->lookAt, &camera->up);
-	d3dDevice->SetTransform(D3DTS_VIEW, camera->GetViewMatrix());
 
-	// Setup projection transform
-	D3DXMATRIXA16 matProj;
-	D3DXMatrixPerspectiveFovLH(&matProj, D3DX_PI / 4, 1.0f, 1.0f, 1000.0f);
-	d3dDevice->SetTransform(D3DTS_PROJECTION, &matProj);
 
-	frustum->make(&matProj);
+	D3DXMATRIXA16 m;
+	D3DXMATRIXA16 *view;
+	view = camera->GetViewMatrix();
+
+	m = *view * matProj;
+	//frustum->make(&matProj);
+	frustum->make(&m);
 }
 
 // Calculate the moving of mouse pointer using viewport axis
@@ -111,6 +119,10 @@ VOID DxMain::MouseInput()
 	SetCursorPos(pt.x, pt.y);
 	mouseX = pt.x;
 	mouseY = pt.y;
+
+	// Setup view transform
+	D3DXMatrixLookAtLH(camera->GetViewMatrix(), &camera->position, &camera->lookAt, &camera->up);
+	d3dDevice->SetTransform(D3DTS_VIEW, camera->GetViewMatrix());
 }
 
 // Process keyboard inputs
@@ -139,6 +151,10 @@ VOID DxMain::Render()
 	// Clear backbuffer as white colour and clear ZBuffer
 	d3dDevice->Clear(0, NULL, D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER, D3DCOLOR_XRGB(255, 255, 255), 1.0f, 0);
 
+
+	// View & Projection transformation
+	SetupMatrices();
+
 	if (SUCCEEDED(d3dDevice->BeginScene()))
 	{
 		// Keyboard & Mouse input process
@@ -147,8 +163,6 @@ VOID DxMain::Render()
 		// Local & World & Camera transformation
 		world->render();
 
-		// View & Projection transformation
-		SetupMatrices();
 		
 		// End the scene
 		d3dDevice->EndScene();

@@ -22,9 +22,9 @@ VOID World::initialize(LPDIRECT3DDEVICE9 d3dDevice, Camera* camera, Frustum* fru
 	D3DXMatrixPerspectiveFovLH(&matProj, D3DX_PI / 4, 1.0f, 1.0f, 1000.0f);
 	frustum->make(&matProj);
 
-	//spawnActor<Actor>(D3DXVECTOR3(0, 0, 5), D3DXVECTOR3(50, 80, 100), D3DXVECTOR3(1, 1, 1));
-	//spawnActor<Actor>(D3DXVECTOR3(0, 0, 5), D3DXVECTOR3(90, 0, 0), D3DXVECTOR3(2, 2, 2));
-	//spawnActor<Actor>(D3DXVECTOR3(0, 0, 10), D3DXVECTOR3(0, 90, 0), D3DXVECTOR3(1, 1, 1));
+	spawnActor<Actor>(D3DXVECTOR3(0, 0, 5), D3DXVECTOR3(50, 80, 100), D3DXVECTOR3(1, 1, 1));
+	spawnActor<Actor>(D3DXVECTOR3(0, 0, 5), D3DXVECTOR3(90, 0, 0), D3DXVECTOR3(2, 2, 2));
+	spawnActor<Actor>(D3DXVECTOR3(0, 0, 10), D3DXVECTOR3(0, 90, 0), D3DXVECTOR3(1, 1, 1));
 	terrain = new Terrain();
 	terrain->create(d3dDevice, frustum, &D3DXVECTOR3(1.0f, 1.0f, 1.0f), 1,
 		(LPSTR)"map.bmp", (LPSTR*)"Textures/grass.jpg");

@@ -17,7 +17,6 @@ Frustum::~Frustum()
 BOOL Frustum::make(D3DXMATRIXA16* matViewProj)
 {
 	D3DXMATRIXA16	matInv;
-	D3DXMatrixIdentity(&matInv);
 
 	// Left Up Near
 	vertex[0].x = -1.0f;	vertex[0].y = -1.0f;	vertex[0].z = 0.0f;

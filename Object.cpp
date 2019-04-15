@@ -119,9 +119,10 @@ VOID Object::render()
 		//d3dDevice->SetTransform
 		d3dDevice->SetMaterial(&materials[i]);
 		d3dDevice->SetTexture(0, textures[i]);
-		d3dDevice->SetTransform(D3DTS_WORLD, &worldMat);
 
 		// Draw the mesh subset
 		mesh->DrawSubset(i);
 	}
+
+	d3dDevice->SetTransform(D3DTS_WORLD, &worldMat);
 }
