@@ -17,6 +17,7 @@ Frustum::~Frustum()
 BOOL Frustum::make(D3DXMATRIXA16* matViewProj)
 {
 	D3DXMATRIXA16	matInv;
+	D3DXMatrixIdentity(&matInv);
 
 	// Left Up Near
 	vertex[0].x = -1.0f;	vertex[0].y = -1.0f;	vertex[0].z = 0.0f;
@@ -56,7 +57,7 @@ BOOL Frustum::make(D3DXMATRIXA16* matViewProj)
 
 BOOL Frustum::isIn(D3DXVECTOR3* pv)
 {
-	float		fDist;
+	float fDist;
 
 	for( int a = 0; a < 6; ++a )
 	{
@@ -112,11 +113,11 @@ BOOL Frustum::draw(LPDIRECT3DDEVICE9 d3dDevice)
 	d3dDevice->SetStreamSource(0, NULL, 0, sizeof(VTX));
 	d3dDevice->SetTexture(0, NULL);
 	d3dDevice->SetIndices(0);
-	d3dDevice->SetTextureStageState(0, D3DTSS_COLOROP, D3DTOP_DISABLE);
-	d3dDevice->SetTextureStageState(1, D3DTSS_COLOROP, D3DTOP_DISABLE);
-	d3dDevice->SetRenderState(D3DRS_ALPHABLENDENABLE, TRUE);
-	d3dDevice->SetRenderState(D3DRS_SRCBLEND, D3DBLEND_ONE);
-	d3dDevice->SetRenderState(D3DRS_DESTBLEND, D3DBLEND_ONE);
+	//d3dDevice->SetTextureStageState(0, D3DTSS_COLOROP, D3DTOP_DISABLE);
+	//d3dDevice->SetTextureStageState(1, D3DTSS_COLOROP, D3DTOP_DISABLE);
+	//d3dDevice->SetRenderState(D3DRS_ALPHABLENDENABLE, TRUE);
+	//d3dDevice->SetRenderState(D3DRS_SRCBLEND, D3DBLEND_ONE);
+	//d3dDevice->SetRenderState(D3DRS_DESTBLEND, D3DBLEND_ONE);
 
 	// 파란색으로 상,하 평면을 그린다.
 	d3dDevice->SetRenderState(D3DRS_LIGHTING, TRUE);
@@ -138,7 +139,7 @@ BOOL Frustum::draw(LPDIRECT3DDEVICE9 d3dDevice)
 	d3dDevice->DrawIndexedPrimitiveUP(D3DPT_TRIANGLELIST, 0, 8, 4, index + 8 * 3, D3DFMT_INDEX16, vtx, sizeof(vtx[0]));
 
 	d3dDevice->SetRenderState(D3DRS_ALPHABLENDENABLE, FALSE);
-	d3dDevice->SetRenderState(D3DRS_LIGHTING, FALSE);
+	//d3dDevice->SetRenderState(D3DRS_LIGHTING, FALSE);
 	return TRUE;
 }
 

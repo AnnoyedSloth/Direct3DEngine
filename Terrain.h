@@ -1,9 +1,10 @@
 #pragma once
 #include "Frustum.h"
 #include "QuadTree.h"
+#include "Dib.h"
 #include "Core.h"
 
-const int MAX_TERRAIN_TEXTURE = 4;
+const int MAX_TERRAIN_TEXTURE = 1;
 
 class Terrain
 {
@@ -12,6 +13,7 @@ class Terrain
 	int zPxl;
 	int yPxl;
 
+	Frustum* frustum;
 	D3DXVECTOR3				scale;
 	TERRAINVERTEX*			heightMap;
 	LPDIRECT3DDEVICE9		d3dDevice;
@@ -27,10 +29,13 @@ class Terrain
 	HRESULT buildHeightMap(LPSTR fileName);
 	HRESULT buildQuadTree();
 	HRESULT createVIB();
-	HRESULT render();
 
 public:
-	HRESULT create(LPDIRECT3DDEVICE9 d3dDevice, D3DXVECTOR3* scale, float ratio, LPSTR fileName, LPSTR texFileName[MAX_TERRAIN_TEXTURE]);
+	Terrain();
+	~Terrain();
+
+
+	HRESULT create(LPDIRECT3DDEVICE9 d3dDevice, Frustum* frustum, D3DXVECTOR3* scale, float ratio, LPSTR bmpName, LPSTR texName[MAX_TERRAIN_TEXTURE]);
 
 	TERRAINVERTEX* getVertex(int x, int z) { return (heightMap + x + z * xPxl); }
 
@@ -41,7 +46,7 @@ public:
 	float getYTerrain() { return yPxl * scale.y; }
 	float getZTerrain() { return zPxl * scale.z; }
 
-	HRESULT draw(Frustum* frustum);
+	HRESULT render();
 
 
 };

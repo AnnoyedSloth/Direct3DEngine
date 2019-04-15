@@ -63,11 +63,13 @@ HRESULT DxMain::InitD3D(HWND* hWnd)
 
 HRESULT DxMain::Initialize()
 {
-	world->Initialize(d3dDevice);
+	frustum = new Frustum();
+
+	world->initialize(d3dDevice, camera, frustum);
 
 	for (unsigned int a = 0; a < world->objs.size(); ++a)
 	{
-		world->objs[a]->LoadMesh(d3dDevice);
+		world->objs[a]->loadMesh(d3dDevice);
 	}
 
 	return S_OK;
@@ -81,8 +83,10 @@ VOID DxMain::SetupMatrices()
 
 	// Setup projection transform
 	D3DXMATRIXA16 matProj;
-	D3DXMatrixPerspectiveFovLH(&matProj, D3DX_PI / 4, 1.0f, 1.0f, 100.0f);
+	D3DXMatrixPerspectiveFovLH(&matProj, D3DX_PI / 4, 1.0f, 1.0f, 1000.0f);
 	d3dDevice->SetTransform(D3DTS_PROJECTION, &matProj);
+
+	frustum->make(&matProj);
 }
 
 // Calculate the moving of mouse pointer using viewport axis
@@ -141,7 +145,7 @@ VOID DxMain::Render()
 		ProcessInput();
 
 		// Local & World & Camera transformation
-		world->Render();
+		world->render();
 
 		// View & Projection transformation
 		SetupMatrices();

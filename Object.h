@@ -25,8 +25,8 @@ public:
 	Object(D3DXVECTOR3 &loc, D3DXVECTOR3 &rot, D3DXVECTOR3 &scale);
 	virtual ~Object();
 
-	HRESULT LoadMesh(LPDIRECT3DDEVICE9 d3dDevice);
-	VOID Render();
+	HRESULT loadMesh(LPDIRECT3DDEVICE9 d3dDevice);
+	VOID render();
 
 	void setLocation(D3DXVECTOR3 &loc) { location = loc; }
 	void setRotation(D3DXVECTOR3 &rot) { rotation = rot; }

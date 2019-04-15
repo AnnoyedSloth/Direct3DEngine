@@ -29,7 +29,7 @@ Object::~Object()
 	if (materials) delete materials;
 }
 
-HRESULT Object::LoadMesh(LPDIRECT3DDEVICE9 d3dDevice)
+HRESULT Object::loadMesh(LPDIRECT3DDEVICE9 d3dDevice)
 {
 	this->d3dDevice = d3dDevice;
 	LPD3DXBUFFER pD3DXMtrlBuffer;
@@ -100,7 +100,7 @@ HRESULT Object::LoadMesh(LPDIRECT3DDEVICE9 d3dDevice)
 	return S_OK;
 }
 
-VOID Object::Render()
+VOID Object::render()
 {
 	D3DXMATRIXA16 s;
 	D3DXMatrixScaling(&s, scale.x, scale.y, scale.z);

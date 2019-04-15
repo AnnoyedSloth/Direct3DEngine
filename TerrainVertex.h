@@ -9,3 +9,8 @@ struct TERRAINVERTEX
 	D3DXVECTOR3 n;
 	D3DXVECTOR2 t;
 };
+
+struct TRIINDEX
+{
+	DWORD _0, _1, _2;
+};

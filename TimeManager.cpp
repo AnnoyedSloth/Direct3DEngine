@@ -10,7 +10,7 @@ TimeManager::~TimeManager()
 
 }
 
-void TimeManager::CalculateDeltaTime()
+void TimeManager::calculateDeltaTime()
 {
 	current = std::chrono::system_clock::now();
 	deltaTime = (start - current).count();

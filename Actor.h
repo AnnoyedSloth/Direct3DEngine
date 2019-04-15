@@ -13,7 +13,7 @@ public:
 
 	virtual ~Actor(){}
 
-	virtual void BeginPlay();
-	virtual void Tick(float deltaTime);
+	virtual void beginPlay();
+	virtual void tick(float deltaTime);
 
 };

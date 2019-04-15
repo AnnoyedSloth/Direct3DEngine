@@ -10,7 +10,7 @@ public:
 	TimeManager();
 	virtual ~TimeManager();
 
-	void CalculateDeltaTime();
+	void calculateDeltaTime();
 
 	float deltaTime;
 

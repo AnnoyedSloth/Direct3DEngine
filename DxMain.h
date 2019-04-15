@@ -13,6 +13,7 @@ private:
 	World* world;
 
 	Camera* camera = NULL;
+	Frustum* frustum = NULL;
 
 	DWORD mouseX;
 	DWORD mouseY;

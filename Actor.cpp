@@ -1,11 +1,11 @@
 #include "Actor.h"
 
-void Actor::BeginPlay()
+void Actor::beginPlay()
 {
 
 }
 
-void Actor::Tick(float deltaTime)
+void Actor::tick(float deltaTime)
 {
 	
 }
