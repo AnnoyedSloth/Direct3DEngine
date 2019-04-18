@@ -17,6 +17,7 @@ Frustum::~Frustum()
 BOOL Frustum::make(D3DXMATRIXA16* matViewProj)
 {
 	D3DXMATRIXA16	matInv;
+	cameraMat = *matViewProj;
 
 	// Left Up Near
 	vertex[0].x = -1.0f;	vertex[0].y = -1.0f;	vertex[0].z = 0.0f;
@@ -36,7 +37,7 @@ BOOL Frustum::make(D3DXMATRIXA16* matViewProj)
 	vertex[7].x = -1.0f;	vertex[7].y = 1.0f;		vertex[7].z = 1.0f;
 
 	D3DXMatrixInverse(&matInv, NULL, matViewProj);
-
+	revProj = matInv;
 
 	for (int i = 0; i < 8; i++)
 		D3DXVec3TransformCoord(&vertex[i], &vertex[i], &matInv);
@@ -80,9 +81,10 @@ BOOL Frustum::isInSphere(D3DXVECTOR3* pv, float radius)
 	return TRUE;
 }
 
-BOOL Frustum::draw(LPDIRECT3DDEVICE9 d3dDevice)
+BOOL Frustum::draw(LPDIRECT3DDEVICE9 d3dDevice, const D3DXVECTOR3* cameraPos)
 {
-	WORD		index[] = { 0, 1, 2,
+
+	DWORD		index[] = { 0, 1, 2,
 							0, 2, 3,
 							4, 7, 6,
 							4, 6, 5,
@@ -112,33 +114,39 @@ BOOL Frustum::draw(LPDIRECT3DDEVICE9 d3dDevice)
 	d3dDevice->SetStreamSource(0, NULL, 0, sizeof(VTX));
 	d3dDevice->SetTexture(0, NULL);
 	d3dDevice->SetIndices(0);
+
 	//d3dDevice->SetTextureStageState(0, D3DTSS_COLOROP, D3DTOP_DISABLE);
 	//d3dDevice->SetTextureStageState(1, D3DTSS_COLOROP, D3DTOP_DISABLE);
-	//d3dDevice->SetRenderState(D3DRS_ALPHABLENDENABLE, TRUE);
-	//d3dDevice->SetRenderState(D3DRS_SRCBLEND, D3DBLEND_ONE);
-	//d3dDevice->SetRenderState(D3DRS_DESTBLEND, D3DBLEND_ONE);
+	d3dDevice->SetRenderState(D3DRS_ALPHABLENDENABLE, TRUE);
+	d3dDevice->SetRenderState(D3DRS_SRCBLEND, D3DBLEND_ONE);
+	d3dDevice->SetRenderState(D3DRS_DESTBLEND, D3DBLEND_ONE);
 
 	// 파란색으로 상,하 평면을 그린다.
 	d3dDevice->SetRenderState(D3DRS_LIGHTING, TRUE);
+	//ZeroMemory(&mtrl, sizeof(D3DMATERIAL9));
+	//mtrl.Diffuse.b = mtrl.Ambient.b = 1.0f;
+	//d3dDevice->SetMaterial(&mtrl);
+	//d3dDevice->DrawIndexedPrimitiveUP(D3DPT_TRIANGLELIST, 0, 8, 4, index, D3DFMT_INDEX32, vtx, sizeof(vtx[0]));
+
 	ZeroMemory(&mtrl, sizeof(D3DMATERIAL9));
 	mtrl.Diffuse.b = mtrl.Ambient.b = 1.0f;
 	d3dDevice->SetMaterial(&mtrl);
-	d3dDevice->DrawIndexedPrimitiveUP(D3DPT_TRIANGLELIST, 0, 8, 4, index, D3DFMT_INDEX16, vtx, sizeof(vtx[0]));
+	d3dDevice->DrawIndexedPrimitiveUP(D3DPT_TRIANGLELIST, 0, 8, 4, index, D3DFMT_INDEX32, vtx, sizeof(vtx[0]));
 
 	// 녹색으로 좌,우 평면을 그린다.
 	ZeroMemory(&mtrl, sizeof(D3DMATERIAL9));
 	mtrl.Diffuse.g = mtrl.Ambient.g = 1.0f;
 	d3dDevice->SetMaterial(&mtrl);
-	d3dDevice->DrawIndexedPrimitiveUP(D3DPT_TRIANGLELIST, 0, 8, 4, index + 4 * 3, D3DFMT_INDEX16, vtx, sizeof(vtx[0]));
+	d3dDevice->DrawIndexedPrimitiveUP(D3DPT_TRIANGLELIST, 0, 8, 4, index + 4 * 3, D3DFMT_INDEX32, vtx, sizeof(vtx[0]));
 
 	// 붉은색으로 원,근 평면을 그린다.
 	ZeroMemory(&mtrl, sizeof(D3DMATERIAL9));
 	mtrl.Diffuse.r = mtrl.Ambient.r = 1.0f;
 	d3dDevice->SetMaterial(&mtrl);
-	d3dDevice->DrawIndexedPrimitiveUP(D3DPT_TRIANGLELIST, 0, 8, 4, index + 8 * 3, D3DFMT_INDEX16, vtx, sizeof(vtx[0]));
+	d3dDevice->DrawIndexedPrimitiveUP(D3DPT_TRIANGLELIST, 0, 8, 4, index + 8 * 3, D3DFMT_INDEX32, vtx, sizeof(vtx[0]));
 
 	d3dDevice->SetRenderState(D3DRS_ALPHABLENDENABLE, FALSE);
-	//d3dDevice->SetRenderState(D3DRS_LIGHTING, FALSE);
+	d3dDevice->SetRenderState(D3DRS_LIGHTING, FALSE);
 	return TRUE;
 }
 

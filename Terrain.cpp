@@ -49,13 +49,13 @@ HRESULT Terrain::create(LPDIRECT3DDEVICE9 d3dDevice, Frustum* frustum, D3DXVECTO
 
 	if (FAILED(buildHeightMap(bmpName)))
 	{	
-		MessageBox(NULL, L"Could not find map.bmp", L"Meshes.exe", MB_OK);
+		MessageBox(NULL, "Could not find map.bmp", "Meshes.exe", MB_OK);
 		destroy();
 		return E_FAIL;
 	}
 	if (FAILED(loadTextures(texName)))
 	{
-		MessageBox(NULL, L"Could not find grass.jpg", L"Meshes.exe", MB_OK);
+		MessageBox(NULL, "Could not find grass.png", "Meshes.exe", MB_OK);
 		destroy();
 		return E_FAIL;
 	}
@@ -102,8 +102,8 @@ HRESULT	Terrain::buildHeightMap(LPSTR bmpname)
 	LPBYTE	pDIB = DibLoadHandle(bmpname);
 	if (!pDIB) return E_FAIL;
 
-	xPxl = DIB_CX(pDIB)+1;
-	zPxl = DIB_CY(pDIB)+1;
+	xPxl = DIB_CX(pDIB);
+	zPxl = DIB_CY(pDIB);
 
 	// 새롭게 추가된 루틴
 	// m_cxDIB나 m_czDIB가 (2^n+1)이 아닌경우 E_FAIL을 반환

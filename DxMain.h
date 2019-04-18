@@ -3,6 +3,7 @@
 #include "Camera.h"
 #include "TimeManager.h"
 #include "World.h"
+//#include "LogManager.h"
 
 class DxMain
 {
@@ -20,6 +21,7 @@ private:
 
 	HWND hWnd;
 	
+	//LogMgr* logMgr;
 
 
 public:

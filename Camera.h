@@ -10,6 +10,7 @@ class Camera
 
 	D3DXMATRIXA16 viewMat;
 	D3DXMATRIXA16 billMat;
+	D3DXMATRIXA16 projMat;
 
 public:
 	Camera();
@@ -23,6 +24,7 @@ public:
 	D3DXMATRIXA16* GetBillMatrix() { return &billMat; }
 
 	D3DXMATRIXA16* SetView(D3DXVECTOR3* pos, D3DXVECTOR3* look, D3DXVECTOR3* up);
+	void SetProj(D3DXMATRIXA16* proj) { projMat = *proj; }
 
 	void SetPos(D3DXVECTOR3* pv) { position = *pv; }
 	D3DXVECTOR3* GetPos() { return &position; }
@@ -30,6 +32,7 @@ public:
 	D3DXVECTOR3* GetLookAt() { return &lookAt; }
 	void SetUp(D3DXVECTOR3* pv) { up = *pv; }
 	D3DXVECTOR3* GetUp() { return &up; }
+	D3DXMATRIXA16* GetProj() { return &projMat; }
 
 	void Flush() { SetView(&position, &lookAt, &up); }
 

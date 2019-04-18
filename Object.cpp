@@ -7,7 +7,7 @@ Object::Object(D3DXVECTOR3 &loc)
 	mesh = NULL;
 	materials = NULL;
 	textures = NULL;
-	numMaterials = 0L;
+	numMaterials = 1;
 
 	location = loc;
 }
@@ -17,7 +17,7 @@ Object::Object(D3DXVECTOR3 &loc, D3DXVECTOR3 &rot, D3DXVECTOR3 &scale)
 	mesh = NULL;
 	materials = NULL;
 	textures = NULL;
-	numMaterials = 0L;
+	numMaterials = 1;
 
 	location = loc;
 	rotation = rot;
@@ -35,18 +35,18 @@ HRESULT Object::loadMesh(LPDIRECT3DDEVICE9 d3dDevice)
 	LPD3DXBUFFER pD3DXMtrlBuffer;
 
 	// Load the mesh from the specified file
-	if (FAILED(D3DXLoadMeshFromX(L"Tiger.x", D3DXMESH_SYSTEMMEM,
+	if (FAILED(D3DXLoadMeshFromX("Tiger.x", D3DXMESH_SYSTEMMEM,
 		d3dDevice, NULL,
 		&pD3DXMtrlBuffer, NULL, &numMaterials,
 		&mesh)))
 	{
 		// If model is not in current folder, try parent folder
-		if (FAILED(D3DXLoadMeshFromX(L"..\\Tiger.x", D3DXMESH_SYSTEMMEM,
+		if (FAILED(D3DXLoadMeshFromX("..\\Tiger.x", D3DXMESH_SYSTEMMEM,
 			d3dDevice, NULL,
 			&pD3DXMtrlBuffer, NULL, &numMaterials,
 			&mesh)))
 		{
-			MessageBox(NULL, L"Could not find tiger.x", L"Meshes.exe", MB_OK);
+			MessageBox(NULL, "Could not find tiger.x", "Meshes.exe", MB_OK);
 			return E_FAIL;
 		}
 	}
@@ -88,7 +88,7 @@ HRESULT Object::loadMesh(LPDIRECT3DDEVICE9 d3dDevice)
 					strTexture,
 					&textures[i])))
 				{
-					MessageBox(NULL, L"Could not find texture map", L"Meshes.exe", MB_OK);
+					MessageBox(NULL, "Could not find texture map", "Meshes.exe", MB_OK);
 				}
 			}
 		}
@@ -123,6 +123,7 @@ VOID Object::render()
 		// Draw the mesh subset
 		mesh->DrawSubset(i);
 	}
+	//D3DXMatrix
 
 	d3dDevice->SetTransform(D3DTS_WORLD, &worldMat);
 }

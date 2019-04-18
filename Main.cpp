@@ -49,13 +49,13 @@ INT WINAPI wWinMain( HINSTANCE hInst, HINSTANCE, LPWSTR, INT )
     {
         sizeof( WNDCLASSEX ), CS_CLASSDC, MsgProc, 0L, 0L,
         GetModuleHandle( NULL ), NULL, NULL, NULL, NULL,
-        L"D3D Project", NULL
+        "D3D Project", NULL
     };
     RegisterClassEx( &wc );
 
 
     // Create the application's window
-    HWND hWnd = CreateWindow( L"D3D Project", L"D3D Project",
+    HWND hWnd = CreateWindow( "D3D Project", "D3D Project",
                               WS_OVERLAPPEDWINDOW, 500, 150, 700, 700,
                               NULL, NULL, wc.hInstance, NULL );
 
@@ -89,6 +89,6 @@ INT WINAPI wWinMain( HINSTANCE hInst, HINSTANCE, LPWSTR, INT )
 
 	if(dxClass) delete dxClass;
 
-    UnregisterClass( L"D3D Project", wc.hInstance );
+    UnregisterClass( "D3D Project", wc.hInstance );
     return 0;
 }

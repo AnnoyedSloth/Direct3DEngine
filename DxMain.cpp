@@ -30,6 +30,7 @@ DxMain::~DxMain()
 	if (d3d) d3d->Release();
 	if (d3dDevice) d3dDevice->Release();
 	if (camera) delete camera;
+	//if (logMgr) delete logMgr;
 }
 
 HRESULT DxMain::InitD3D(HWND* hWnd)
@@ -68,6 +69,8 @@ HRESULT DxMain::Initialize()
 {
 	frustum = new Frustum();
 
+	//logMgr = new LogMgr(ZF_LOG_TARGET_WINDOW);
+
 	world->initialize(d3dDevice, camera, frustum);
 
 	for (unsigned int a = 0; a < world->objs.size(); ++a)
@@ -78,6 +81,7 @@ HRESULT DxMain::Initialize()
 	// Setup projection transform
 	D3DXMatrixPerspectiveFovLH(&matProj, D3DX_PI / 4, 1.0f, 1.0f, 1000.0f);
 	d3dDevice->SetTransform(D3DTS_PROJECTION, &matProj);
+	camera->SetProj(&matProj);
 
 	D3DXMatrixPerspectiveFovLH(&matProj, D3DX_PI / 4, 1.0f, 1.0f, 200.0f);
 
@@ -86,14 +90,13 @@ HRESULT DxMain::Initialize()
 
 VOID DxMain::SetupMatrices()
 {
-
-
 	D3DXMATRIXA16 m;
 	D3DXMATRIXA16 *view;
 	view = camera->GetViewMatrix();
 
 	m = *view * matProj;
-	//frustum->make(&matProj);
+
+
 	frustum->make(&m);
 }
 
@@ -121,7 +124,7 @@ VOID DxMain::MouseInput()
 	mouseY = pt.y;
 
 	// Setup view transform
-	D3DXMatrixLookAtLH(camera->GetViewMatrix(), &camera->position, &camera->lookAt, &camera->up);
+	//D3DXMatrixLookAtLH(camera->GetViewMatrix(), &camera->position, &camera->lookAt, &camera->up);
 	d3dDevice->SetTransform(D3DTS_VIEW, camera->GetViewMatrix());
 }
 
@@ -134,6 +137,8 @@ VOID DxMain::KeyboardInput()
 	if (GetAsyncKeyState('D')) camera->MoveLocalX(.1f);
 	if (GetAsyncKeyState('Q')) camera->MoveLocalY(-.1f);
 	if (GetAsyncKeyState('E')) camera->MoveLocalY(.1f);
+	//D3DXMatrixLookAtLH(camera->GetViewMatrix(), &camera->position, &camera->lookAt, &camera->up);
+	d3dDevice->SetTransform(D3DTS_VIEW, camera->GetViewMatrix());
 }
 
 // Process keyboard & mouse inputs
@@ -151,19 +156,25 @@ VOID DxMain::Render()
 	// Clear backbuffer as white colour and clear ZBuffer
 	d3dDevice->Clear(0, NULL, D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER, D3DCOLOR_XRGB(255, 255, 255), 1.0f, 0);
 
-
-	// View & Projection transformation
-	SetupMatrices();
+	//if(logMgr)logMgr->LogStatus();
 
 	if (SUCCEEDED(d3dDevice->BeginScene()))
 	{
 		// Keyboard & Mouse input process
 		ProcessInput();
 
+		//d3dDevice->SetTransform(D3DTS_VIEW, camera->GetViewMatrix());
+		//d3dDevice->SetTransform(D3DTS_PROJECTION, camera->GetProj());
+
+
+
 		// Local & World & Camera transformation
 		world->render();
 
-		
+
+		// View & Projection transformation
+		SetupMatrices();
+
 		// End the scene
 		d3dDevice->EndScene();
 	}

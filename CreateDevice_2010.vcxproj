@@ -36,7 +36,7 @@
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
-    <CharacterSet>Unicode</CharacterSet>
+    <CharacterSet>MultiByte</CharacterSet>
     <PlatformToolset>v141</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|X64'" Label="Configuration">
@@ -381,6 +381,7 @@
     <ClCompile Include="dib.cpp" />
     <ClCompile Include="Frustum.cpp" />
     <ClCompile Include="InputManager.cpp" />
+    <ClCompile Include="LogManager.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="DxMain.cpp" />
     <ClCompile Include="Object.cpp" />
@@ -399,6 +400,7 @@
     <ClInclude Include="DxMain.h" />
     <ClInclude Include="Frustum.h" />
     <ClInclude Include="InputManager.h" />
+    <ClInclude Include="LogManager.h" />
     <ClInclude Include="Object.h" />
     <ClInclude Include="QuadTree.h" />
     <CLInclude Include="resource.h" />

@@ -16,18 +16,15 @@ VOID World::initialize(LPDIRECT3DDEVICE9 d3dDevice, Camera* camera, Frustum* fru
 	this->camera = camera;
 	this->frustum = frustum;
 
-	camera->SetView(&camera->position, &camera->lookAt, &camera->up);
 
-	D3DXMATRIXA16 matProj;
-	D3DXMatrixPerspectiveFovLH(&matProj, D3DX_PI / 4, 1.0f, 1.0f, 1000.0f);
-	frustum->make(&matProj);
-
-	spawnActor<Actor>(D3DXVECTOR3(0, 0, 5), D3DXVECTOR3(50, 80, 100), D3DXVECTOR3(1, 1, 1));
+	spawnActor<Actor>(D3DXVECTOR3(-3, 0, 5), D3DXVECTOR3(0, 0, 0), D3DXVECTOR3(1, 1, 1));
 	spawnActor<Actor>(D3DXVECTOR3(0, 0, 5), D3DXVECTOR3(90, 0, 0), D3DXVECTOR3(2, 2, 2));
-	spawnActor<Actor>(D3DXVECTOR3(0, 0, 10), D3DXVECTOR3(0, 90, 0), D3DXVECTOR3(1, 1, 1));
+	spawnActor<Actor>(D3DXVECTOR3(3, 0, 5), D3DXVECTOR3(0, 90, 0), D3DXVECTOR3(1, 1, 1));
+
+
 	terrain = new Terrain();
 	terrain->create(d3dDevice, frustum, &D3DXVECTOR3(1.0f, 1.0f, 1.0f), 1,
-		(LPSTR)"map.bmp", (LPSTR*)"Textures/grass.jpg");
+		(LPSTR)"Textures/BMP_map.bmp", (LPSTR*)"Textures/PNG_grass.png");
 
 }
 
@@ -35,13 +32,18 @@ VOID World::render()
 {
 	time.calculateDeltaTime();
 
-	frustum->draw(d3dDevice);
-	for (unsigned int a = 0; a < objs.size(); ++a)
-	{
-		objs[a]->tick(time.deltaTime);
-		objs[a]->render();
-	}
-	//if (terrain) terrain->render();
+	if (terrain) terrain->render();
+	
+	//for (auto iter = objs.begin(); iter != objs.end(); ++iter)
+	//{
+	//	(*iter)->tick(time.deltaTime);
+	//	(*iter)->render();
+	//}
+	D3DXMATRIXA16 pos;
+	D3DXMatrixTranslation(&pos, 0, 0, 0);
+	d3dDevice->SetTransform(D3DTS_WORLD, &pos);
+	frustum->draw(d3dDevice, camera->GetPos());
+
 }
 
 // Factory function which spawn derived classes of Actor

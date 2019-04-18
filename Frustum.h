@@ -8,6 +8,8 @@ class Frustum
 	D3DXVECTOR3 vertex[8];
 	D3DXVECTOR3 pos;
 	D3DXPLANE plane[6];
+	D3DXMATRIXA16 cameraMat;
+	D3DXMATRIXA16 revProj;
 
 public:
 	Frustum();
@@ -19,7 +21,7 @@ public:
 
 	BOOL isInSphere(D3DXVECTOR3* pv, float radius);
 
-	BOOL draw(LPDIRECT3DDEVICE9 d3dDevice);
+	BOOL draw(LPDIRECT3DDEVICE9 d3dDevice, const D3DXVECTOR3* cameraPos);
 
 	D3DXVECTOR3* getPos() { return &pos; }
 
