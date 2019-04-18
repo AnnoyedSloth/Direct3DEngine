@@ -167,13 +167,13 @@ VOID DxMain::Render()
 		//d3dDevice->SetTransform(D3DTS_PROJECTION, camera->GetProj());
 
 
+		// View & Projection transformation
+		SetupMatrices();
 
 		// Local & World & Camera transformation
 		world->render();
 
 
-		// View & Projection transformation
-		SetupMatrices();
 
 		// End the scene
 		d3dDevice->EndScene();

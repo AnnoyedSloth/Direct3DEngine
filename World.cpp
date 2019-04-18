@@ -32,18 +32,14 @@ VOID World::render()
 {
 	time.calculateDeltaTime();
 
-	if (terrain) terrain->render();
-	
-	//for (auto iter = objs.begin(); iter != objs.end(); ++iter)
-	//{
-	//	(*iter)->tick(time.deltaTime);
-	//	(*iter)->render();
-	//}
-	D3DXMATRIXA16 pos;
-	D3DXMatrixTranslation(&pos, 0, 0, 0);
-	d3dDevice->SetTransform(D3DTS_WORLD, &pos);
+	for (auto iter = objs.begin(); iter != objs.end(); ++iter)
+	{
+		(*iter)->tick(time.deltaTime);
+		(*iter)->render();
+	}
 	frustum->draw(d3dDevice, camera->GetPos());
 
+	//if (terrain) terrain->render();
 }
 
 // Factory function which spawn derived classes of Actor
