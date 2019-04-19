@@ -22,6 +22,7 @@ private:
 	HWND hWnd;
 	
 	//LogMgr* logMgr;
+	BOOL isWireFrame;
 
 
 public:

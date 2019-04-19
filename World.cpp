@@ -23,7 +23,7 @@ VOID World::initialize(LPDIRECT3DDEVICE9 d3dDevice, Camera* camera, Frustum* fru
 
 
 	terrain = new Terrain();
-	terrain->create(d3dDevice, frustum, &D3DXVECTOR3(1.0f, 1.0f, 1.0f), 1,
+	terrain->create(d3dDevice, frustum, &D3DXVECTOR3(1.0f, 1.0f, 1.0f), 0.05,
 		(LPSTR)"Textures/BMP_map.bmp", (LPSTR*)"Textures/PNG_grass.png");
 
 }
@@ -37,9 +37,9 @@ VOID World::render()
 		(*iter)->tick(time.deltaTime);
 		(*iter)->render();
 	}
-	frustum->draw(d3dDevice, camera->GetPos());
+	if (terrain) terrain->render();
+	//frustum->draw(d3dDevice, camera->GetPos());
 
-	//if (terrain) terrain->render();
 }
 
 // Factory function which spawn derived classes of Actor

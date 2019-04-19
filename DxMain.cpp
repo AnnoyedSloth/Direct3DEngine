@@ -22,6 +22,8 @@ DxMain::DxMain()
 
 	hWnd = NULL;
 
+	isWireFrame = false;
+
 	world = new World();
 }
 
@@ -155,6 +157,7 @@ VOID DxMain::Render()
 
 	// Clear backbuffer as white colour and clear ZBuffer
 	d3dDevice->Clear(0, NULL, D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER, D3DCOLOR_XRGB(255, 255, 255), 1.0f, 0);
+	d3dDevice->SetRenderState(D3DRS_FILLMODE, isWireFrame ? D3DFILL_WIREFRAME : D3DFILL_SOLID);
 
 	//if(logMgr)logMgr->LogStatus();
 

@@ -105,8 +105,6 @@ HRESULT	Terrain::buildHeightMap(LPSTR bmpname)
 	xPxl = DIB_CX(pDIB);
 	zPxl = DIB_CY(pDIB);
 
-	// 새롭게 추가된 루틴
-	// m_cxDIB나 m_czDIB가 (2^n+1)이 아닌경우 E_FAIL을 반환
 	n = Log2(xPxl);
 	if ((Pow2(n) + 1) != xPxl) return E_FAIL;
 	n = Log2(zPxl);
@@ -157,12 +155,21 @@ HRESULT	Terrain::createVIB()
 	memcpy(pVertices, heightMap, xPxl*zPxl * sizeof(TERRAINVERTEX));
 	vBuffer->Unlock();
 
+#ifdef _USE_INDEX16
+	// IB생성
+	if (FAILED(d3dDevice->CreateIndexBuffer((xPxl - 1)*(zPxl - 1) * 2 * sizeof(TRIINDEX), 0, D3DFMT_INDEX16, D3DPOOL_DEFAULT, &iBuffer, NULL)))
+	{
+		destroy();
+		return E_FAIL;
+	}
+#else
 	// IB생성
 	if (FAILED(d3dDevice->CreateIndexBuffer((xPxl - 1)*(zPxl - 1) * 2 * sizeof(TRIINDEX), 0, D3DFMT_INDEX32, D3DPOOL_DEFAULT, &iBuffer, NULL)))
 	{
 		destroy();
 		return E_FAIL;
 	}
+#endif
 	return S_OK;
 }
 
@@ -191,7 +198,7 @@ HRESULT Terrain::render()
 	d3dDevice->SetStreamSource(0, vBuffer, 0, sizeof(TERRAINVERTEX));
 	d3dDevice->SetFVF(TERRAINVERTEX::FVF);
 	d3dDevice->SetIndices(iBuffer);
-	if(triangles>0) d3dDevice->DrawIndexedPrimitive(D3DPT_TRIANGLELIST, 0, 0, xPxl * zPxl, 0, triangles);
+	d3dDevice->DrawIndexedPrimitive(D3DPT_TRIANGLELIST, 0, 0, xPxl * zPxl, 0, triangles);
 
 	return S_OK;
 }

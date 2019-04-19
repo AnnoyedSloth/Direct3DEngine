@@ -127,10 +127,6 @@ BOOL Frustum::draw(LPDIRECT3DDEVICE9 d3dDevice, const D3DXVECTOR3* cameraPos)
 
 	// 파란색으로 상,하 평면을 그린다.
 	d3dDevice->SetRenderState(D3DRS_LIGHTING, TRUE);
-	//ZeroMemory(&mtrl, sizeof(D3DMATERIAL9));
-	//mtrl.Diffuse.b = mtrl.Ambient.b = 1.0f;
-	//d3dDevice->SetMaterial(&mtrl);
-	//d3dDevice->DrawIndexedPrimitiveUP(D3DPT_TRIANGLELIST, 0, 8, 4, index, D3DFMT_INDEX32, vtx, sizeof(vtx[0]));
 
 	ZeroMemory(&mtrl, sizeof(D3DMATERIAL9));
 	mtrl.Diffuse.b = mtrl.Ambient.b = 1.0f;

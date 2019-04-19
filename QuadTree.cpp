@@ -99,13 +99,17 @@ BOOL QuadTree::subDivide()
 
 int QuadTree::generateTriIndex(int tris, LPVOID index, TERRAINVERTEX* heightMap, Frustum* frustum, float ratio)
 {
-	if (culled) culled == FALSE; return tris;
+	if (culled) 
+	{
+		culled == FALSE;
+		return tris;
+	}
 
 	LPDWORD p = ((LPDWORD)index) + tris * 3;
 
 	if (isVisible(heightMap, frustum->getPos(), ratio))
 	{
-		// In case of leaf node, subdivide is unfeasible
+		// In case of leaf node, more subdividing is unfeasible
 		if (corner[TR] - corner[TL] <= 1)
 		{
 			*p++ = corner[0];
