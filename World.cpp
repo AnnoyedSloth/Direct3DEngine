@@ -21,10 +21,11 @@ VOID World::initialize(LPDIRECT3DDEVICE9 d3dDevice, Camera* camera, Frustum* fru
 	spawnActor<Actor>(D3DXVECTOR3(0, 0, 5), D3DXVECTOR3(90, 0, 0), D3DXVECTOR3(2, 2, 2));
 	spawnActor<Actor>(D3DXVECTOR3(3, 0, 5), D3DXVECTOR3(0, 90, 0), D3DXVECTOR3(1, 1, 1));
 
+	LPSTR tex[4] = { "tile2.tga", "lightmap.tga", "", "" };
 
 	terrain = new Terrain();
-	terrain->create(d3dDevice, frustum, &D3DXVECTOR3(1.0f, 1.0f, 1.0f), 0.05,
-		(LPSTR)"Textures/BMP_map.bmp", (LPSTR*)"Textures/PNG_grass.png");
+	terrain->create(d3dDevice, frustum, &D3DXVECTOR3(0.3f, 0.05f, 0.3f), 0.05,
+		(LPSTR)"Textures/map129.bmp", tex);
 
 }
 
@@ -37,9 +38,8 @@ VOID World::render()
 		(*iter)->tick(time.deltaTime);
 		(*iter)->render();
 	}
+	frustum->draw(d3dDevice, camera->GetPos());
 	if (terrain) terrain->render();
-	//frustum->draw(d3dDevice, camera->GetPos());
-
 }
 
 // Factory function which spawn derived classes of Actor

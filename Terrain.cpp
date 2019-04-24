@@ -25,7 +25,7 @@ Terrain::Terrain()
 	zPxl = 0;
 	yPxl = 0;
 	
-	scale = D3DXVECTOR3(1.0f, 1.0f, 1.0f);
+	scale = D3DXVECTOR3(.3f, .01f, .3f);
 	heightMap = NULL;
 	LPDIRECT3DDEVICE9 d3dDevice;
 	for (int a = 0; a < MAX_TERRAIN_TEXTURE; ++a) texture[a] = NULL;
@@ -61,6 +61,7 @@ HRESULT Terrain::create(LPDIRECT3DDEVICE9 d3dDevice, Frustum* frustum, D3DXVECTO
 	}
 	if (FAILED(createVIB()))
 	{
+		MessageBox(NULL, "Could not create VIB", "Meshes.exe", MB_OK);
 		destroy();
 		return E_FAIL;
 	}
@@ -69,6 +70,7 @@ HRESULT Terrain::create(LPDIRECT3DDEVICE9 d3dDevice, Frustum* frustum, D3DXVECTO
 
 	if (FAILED(buildQuadTree()))
 	{
+		MessageBox(NULL, "Could not build quadtree", "Meshes.exe", MB_OK);
 		destroy();
 		return E_FAIL;
 	}
@@ -181,6 +183,10 @@ HRESULT Terrain::render()
 		return E_FAIL;
 	triangles =quadTree->generateIndex(pI, heightMap, frustum, ratio);
 	iBuffer->Unlock();
+
+	D3DXMATRIXA16 pos;
+	D3DXMatrixTranslation(&pos, 0, 0, 0);
+	d3dDevice->SetTransform(D3DTS_WORLD, &pos);
 
 	d3dDevice->SetTexture(0, texture[0]);								// 0번 텍스쳐 스테이지에 텍스쳐 고정(색깔맵)
 	d3dDevice->SetTexture(1, texture[1]);								// 1번 텍스쳐 스테이지에 텍스쳐 고정(음영맵)

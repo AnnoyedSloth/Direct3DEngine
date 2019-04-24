@@ -119,8 +119,8 @@ BOOL Frustum::draw(LPDIRECT3DDEVICE9 d3dDevice, const D3DXVECTOR3* cameraPos)
 	D3DXMatrixTranslation(&pos, 0, 0, 0);
 	d3dDevice->SetTransform(D3DTS_WORLD, &pos);
 
-	//d3dDevice->SetTextureStageState(0, D3DTSS_COLOROP, D3DTOP_DISABLE);
-	//d3dDevice->SetTextureStageState(1, D3DTSS_COLOROP, D3DTOP_DISABLE);
+	d3dDevice->SetTextureStageState(0, D3DTSS_COLOROP, D3DTOP_DISABLE);
+	d3dDevice->SetTextureStageState(1, D3DTSS_COLOROP, D3DTOP_DISABLE);
 	d3dDevice->SetRenderState(D3DRS_ALPHABLENDENABLE, TRUE);
 	d3dDevice->SetRenderState(D3DRS_SRCBLEND, D3DBLEND_ONE);
 	d3dDevice->SetRenderState(D3DRS_DESTBLEND, D3DBLEND_ONE);

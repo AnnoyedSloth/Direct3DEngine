@@ -4,7 +4,7 @@
 #include "Dib.h"
 #include "Core.h"
 
-const int MAX_TERRAIN_TEXTURE = 1;
+const int MAX_TERRAIN_TEXTURE = 4;
 
 class Terrain
 {
