@@ -62,10 +62,10 @@ INT WINAPI wWinMain( HINSTANCE hInst, HINSTANCE, LPWSTR, INT )
 	DxMain* dxClass = new DxMain();
 
 	// Initialize Direct3D
-	if (SUCCEEDED(dxClass->InitD3D(&hWnd)))
+	if (SUCCEEDED(dxClass->initD3D(&hWnd)))
 	{
 		// Create the scene geometry
-		if (SUCCEEDED(dxClass->Initialize()))
+		if (SUCCEEDED(dxClass->initialize()))
 		{
 			// Show the window
 			ShowWindow(hWnd, SW_SHOWDEFAULT);
@@ -82,7 +82,7 @@ INT WINAPI wWinMain( HINSTANCE hInst, HINSTANCE, LPWSTR, INT )
 					DispatchMessage(&msg);
 				}
 				else
-					dxClass->Render();
+					dxClass->render();
 			}
 		}
 	}

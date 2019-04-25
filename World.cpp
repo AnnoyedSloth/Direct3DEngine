@@ -10,12 +10,12 @@ World::~World()
 	if (terrain) delete terrain;
 }
 
-VOID World::initialize(LPDIRECT3DDEVICE9 d3dDevice, Camera* camera, Frustum* frustum)
+VOID World::initialize(LPDIRECT3DDEVICE9 d3dDevice, Camera* camera, Frustum* frustum, TimeManager* timeMgr)
 {	
 	this->d3dDevice = d3dDevice;
 	this->camera = camera;
 	this->frustum = frustum;
-
+	time = timeMgr;
 
 	spawnActor<Actor>(D3DXVECTOR3(-3, 0, 5), D3DXVECTOR3(0, 0, 0), D3DXVECTOR3(1, 1, 1));
 	spawnActor<Actor>(D3DXVECTOR3(0, 0, 5), D3DXVECTOR3(90, 0, 0), D3DXVECTOR3(2, 2, 2));
@@ -24,21 +24,19 @@ VOID World::initialize(LPDIRECT3DDEVICE9 d3dDevice, Camera* camera, Frustum* fru
 	LPSTR tex[4] = { "tile2.tga", "lightmap.tga", "", "" };
 
 	terrain = new Terrain();
-	terrain->create(d3dDevice, frustum, &D3DXVECTOR3(0.3f, 0.05f, 0.3f), 0.05,
+	terrain->create(d3dDevice, frustum, &D3DXVECTOR3(1.0f, 0.1f, 1.0f), 0.05,
 		(LPSTR)"Textures/map129.bmp", tex);
-
 }
 
 VOID World::render()
 {
-	time.calculateDeltaTime();
 
 	for (auto iter = objs.begin(); iter != objs.end(); ++iter)
 	{
-		(*iter)->tick(time.deltaTime);
+		(*iter)->tick(time->deltaTime);
 		(*iter)->render();
 	}
-	frustum->draw(d3dDevice, camera->GetPos());
+	//frustum->draw(d3dDevice, camera->GetPos());
 	if (terrain) terrain->render();
 }
 

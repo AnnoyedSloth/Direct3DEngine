@@ -116,14 +116,12 @@ VOID Object::render()
 	for (DWORD i = 0; i < numMaterials; i++)
 	{
 		// Set the material and texture for this subset
-		//d3dDevice->SetTransform
 		d3dDevice->SetMaterial(&materials[i]);
 		d3dDevice->SetTexture(0, textures[i]);
 
 		// Draw the mesh subset
 		mesh->DrawSubset(i);
 	}
-	//D3DXMatrix
 
 	d3dDevice->SetTransform(D3DTS_WORLD, &worldMat);
 }

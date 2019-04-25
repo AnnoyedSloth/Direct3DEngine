@@ -18,11 +18,12 @@ class Terrain
 	TERRAINVERTEX*			heightMap;
 	LPDIRECT3DDEVICE9		d3dDevice;
 	LPDIRECT3DTEXTURE9		texture[MAX_TERRAIN_TEXTURE];
+	D3DMATERIAL9*       materials;
 	LPDIRECT3DVERTEXBUFFER9 vBuffer;
 	LPDIRECT3DINDEXBUFFER9	iBuffer;
 	int						triangles;
 	QuadTree*				quadTree;
-	float					ratio;
+	float					ratioLOD;
 
 	HRESULT destroy();
 	HRESULT loadTextures(LPSTR texName[MAX_TERRAIN_TEXTURE]);

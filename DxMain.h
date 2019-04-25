@@ -13,6 +13,8 @@ private:
 
 	World* world;
 
+	TimeManager* time;
+
 	Camera* camera = NULL;
 	Frustum* frustum = NULL;
 
@@ -29,14 +31,14 @@ public:
 	DxMain();
 	~DxMain();
 
-	HRESULT InitD3D(HWND* hWnd);
-	HRESULT Initialize();
+	HRESULT initD3D(HWND* hWnd);
+	HRESULT initialize();
 
-	VOID SetupMatrices();
-	VOID Render();
-	VOID ProcessInput();
-	VOID MouseInput();
-	VOID KeyboardInput();
+	VOID setupFrustum();
+	VOID render();
+	VOID processInput();
+	VOID mouseInput();
+	VOID keyboardInput();
 
 
 };

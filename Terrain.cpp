@@ -40,11 +40,11 @@ Terrain::~Terrain()
 
 }
 
-HRESULT Terrain::create(LPDIRECT3DDEVICE9 d3dDevice, Frustum* frustum, D3DXVECTOR3* scale, float ratio, LPSTR bmpName, LPSTR texName[MAX_TERRAIN_TEXTURE])
+HRESULT Terrain::create(LPDIRECT3DDEVICE9 d3dDevice, Frustum* frustum, D3DXVECTOR3* scale, float ratioLOD, LPSTR bmpName, LPSTR texName[MAX_TERRAIN_TEXTURE])
 {
 	this->d3dDevice = d3dDevice;
 	this->scale = *scale;
-	this->ratio = ratio;
+	this->ratioLOD = ratioLOD;
 	this->frustum = frustum;
 
 	if (FAILED(buildHeightMap(bmpName)))
@@ -74,6 +74,9 @@ HRESULT Terrain::create(LPDIRECT3DDEVICE9 d3dDevice, Frustum* frustum, D3DXVECTO
 		destroy();
 		return E_FAIL;
 	}
+
+	materials = new D3DMATERIAL9();
+
 
 	return S_OK;
 }
@@ -181,12 +184,21 @@ HRESULT Terrain::render()
 
 	if (FAILED(iBuffer->Lock(0, (xPxl - 1)*(zPxl - 1) * 2 * sizeof(TRIINDEX), (void**)&pI, 0)))
 		return E_FAIL;
-	triangles =quadTree->generateIndex(pI, heightMap, frustum, ratio);
+	triangles =quadTree->generateIndex(pI, heightMap, frustum, ratioLOD);
 	iBuffer->Unlock();
 
 	D3DXMATRIXA16 pos;
 	D3DXMatrixTranslation(&pos, 0, 0, 0);
 	d3dDevice->SetTransform(D3DTS_WORLD, &pos);
+
+	materials->Diffuse.r;//= materials->Ambient.r = 1.0f;
+	materials->Diffuse.g;//= materials->Ambient.g = 1.0f;
+	materials->Diffuse.b;//= materials->Ambient.b = 1.0f;
+	materials->Diffuse.a;//= materials->Ambient.a = 1.0f;
+
+	d3dDevice->SetMaterial(materials);
+	d3dDevice->SetRenderState(D3DRS_LIGHTING, FALSE);
+	d3dDevice->SetRenderState(D3DRS_AMBIENT, 0xffffffff);
 
 	d3dDevice->SetTexture(0, texture[0]);								// 0번 텍스쳐 스테이지에 텍스쳐 고정(색깔맵)
 	d3dDevice->SetTexture(1, texture[1]);								// 1번 텍스쳐 스테이지에 텍스쳐 고정(음영맵)

@@ -35,7 +35,7 @@ DxMain::~DxMain()
 	//if (logMgr) delete logMgr;
 }
 
-HRESULT DxMain::InitD3D(HWND* hWnd)
+HRESULT DxMain::initD3D(HWND* hWnd)
 {
 	if (NULL == (d3d = Direct3DCreate9(D3D_SDK_VERSION)))
 		return E_FAIL;
@@ -67,13 +67,15 @@ HRESULT DxMain::InitD3D(HWND* hWnd)
 	return S_OK;
 }
 
-HRESULT DxMain::Initialize()
+HRESULT DxMain::initialize()
 {
-	frustum = new Frustum();
+	frustum = new Frustum(camera);
 
 	//logMgr = new LogMgr(ZF_LOG_TARGET_WINDOW);
 
-	world->initialize(d3dDevice, camera, frustum);
+	time = new TimeManager();
+
+	world->initialize(d3dDevice, camera, frustum, time);
 
 	for (unsigned int a = 0; a < world->objs.size(); ++a)
 	{
@@ -85,12 +87,12 @@ HRESULT DxMain::Initialize()
 	d3dDevice->SetTransform(D3DTS_PROJECTION, &matProj);
 	camera->SetProj(&matProj);
 
-	D3DXMatrixPerspectiveFovLH(&matProj, D3DX_PI / 4, 1.0f, 1.0f, 200.0f);
+	D3DXMatrixPerspectiveFovLH(&matProj, D3DX_PI / 4, 1.0f, 1.0f, 500.0f);
 
 	return S_OK;
 }
 
-VOID DxMain::SetupMatrices()
+VOID DxMain::setupFrustum()
 {
 	D3DXMATRIXA16 m;
 	D3DXMATRIXA16 *view;
@@ -98,12 +100,11 @@ VOID DxMain::SetupMatrices()
 
 	m = *view * matProj;
 
-
 	frustum->make(&m);
 }
 
 // Calculate the moving of mouse pointer using viewport axis
-VOID DxMain::MouseInput()
+VOID DxMain::mouseInput()
 {
 	POINT pt;
 	float delta = 0.001f;
@@ -131,26 +132,26 @@ VOID DxMain::MouseInput()
 }
 
 // Process keyboard inputs
-VOID DxMain::KeyboardInput()
+VOID DxMain::keyboardInput()
 {
-	if (GetAsyncKeyState('W')) camera->MoveLocalZ(.1f);
-	if (GetAsyncKeyState('S')) camera->MoveLocalZ(-.1f);
-	if (GetAsyncKeyState('A')) camera->MoveLocalX(-.1f);
-	if (GetAsyncKeyState('D')) camera->MoveLocalX(.1f);
-	if (GetAsyncKeyState('Q')) camera->MoveLocalY(-.1f);
-	if (GetAsyncKeyState('E')) camera->MoveLocalY(.1f);
+	if (GetAsyncKeyState('W')) camera->MoveLocalZ(10.0f * time->deltaTime);
+	if (GetAsyncKeyState('S')) camera->MoveLocalZ(-10.0f * time->deltaTime);
+	if (GetAsyncKeyState('A')) camera->MoveLocalX(-10.0f * time->deltaTime);
+	if (GetAsyncKeyState('D')) camera->MoveLocalX(10.0f * time->deltaTime);
+	if (GetAsyncKeyState('Q')) camera->MoveLocalY(-10.0f * time->deltaTime);
+	if (GetAsyncKeyState('E')) camera->MoveLocalY(10.0f * time->deltaTime);
 	//D3DXMatrixLookAtLH(camera->GetViewMatrix(), &camera->position, &camera->lookAt, &camera->up);
 	d3dDevice->SetTransform(D3DTS_VIEW, camera->GetViewMatrix());
 }
 
 // Process keyboard & mouse inputs
-VOID DxMain::ProcessInput()
+VOID DxMain::processInput()
 {
-	MouseInput();
-	KeyboardInput();
+	mouseInput();
+	keyboardInput();
 }
 
-VOID DxMain::Render()
+VOID DxMain::render()
 {
 	if (NULL == d3dDevice)
 		return;
@@ -159,24 +160,19 @@ VOID DxMain::Render()
 	d3dDevice->Clear(0, NULL, D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER, D3DCOLOR_XRGB(255, 255, 255), 1.0f, 0);
 	d3dDevice->SetRenderState(D3DRS_FILLMODE, isWireFrame ? D3DFILL_WIREFRAME : D3DFILL_SOLID);
 
-	//if(logMgr)logMgr->LogStatus();
-
 	if (SUCCEEDED(d3dDevice->BeginScene()))
 	{
+		// Calculate time between before frame and current frame
+		time->calculateDeltaTime();
+
 		// Keyboard & Mouse input process
-		ProcessInput();
+		processInput();
 
-		//d3dDevice->SetTransform(D3DTS_VIEW, camera->GetViewMatrix());
-		//d3dDevice->SetTransform(D3DTS_PROJECTION, camera->GetProj());
-
-
-		// View & Projection transformation
-		SetupMatrices();
+		// Setup frustum matrix
+		setupFrustum();
 
 		// Local & World & Camera transformation
 		world->render();
-
-
 
 		// End the scene
 		d3dDevice->EndScene();

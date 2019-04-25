@@ -9,7 +9,7 @@ class Camera;
 
 class World
 {
-	TimeManager time;
+	TimeManager* time;
 	LPDIRECT3DDEVICE9 d3dDevice;
 	Frustum* frustum;
 
@@ -21,10 +21,10 @@ public:
 	std::vector<Actor*> objs;
 	Camera* camera;
 	
-	VOID initialize(LPDIRECT3DDEVICE9 d3dDevice, Camera* camera, Frustum* frustum);
+	VOID initialize(LPDIRECT3DDEVICE9 d3dDevice, Camera* camera, Frustum* frustum, TimeManager* timeMgr);
 	VOID render();
 
-	const TimeManager* getTime() const { return &time; }
+	const TimeManager* getTime() const { return time; }
 
 	template <class T>
 	Actor* spawnActor(D3DXVECTOR3 &loc, D3DXVECTOR3 &rot, D3DXVECTOR3 &scale);
