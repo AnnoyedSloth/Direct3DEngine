@@ -105,12 +105,10 @@ VOID Object::render()
 	D3DXMATRIXA16 s;
 	D3DXMatrixScaling(&s, scale.x, scale.y, scale.z);
 	D3DXMATRIXA16 r;
-	D3DXMatrixRotationYawPitchRoll(&r, rotation.x, rotation.y, rotation.z);
+	D3DXMatrixRotationYawPitchRoll(&r, D3DX_PI * rotation.x / 180.0f, D3DX_PI * rotation.y / 180.0f, D3DX_PI * rotation.z / 180.0f);
 	D3DXMATRIXA16 l;
 	D3DXMatrixTranslation(&l, location.x, location.y, location.z);
-
-	D3DXMatrixIdentity(&worldMat);
-
+	
 	worldMat = s * r * l;
 	// Rendering of scene objects can happen here
 	for (DWORD i = 0; i < numMaterials; i++)
@@ -123,5 +121,6 @@ VOID Object::render()
 		mesh->DrawSubset(i);
 	}
 
+	// Set world transform based on object's world matrix
 	d3dDevice->SetTransform(D3DTS_WORLD, &worldMat);
 }

@@ -378,6 +378,7 @@
   <ItemGroup>
     <ClCompile Include="Actor.cpp" />
     <ClCompile Include="Camera.cpp" />
+    <ClCompile Include="Character.cpp" />
     <ClCompile Include="dib.cpp" />
     <ClCompile Include="Frustum.cpp" />
     <ClCompile Include="InputManager.cpp" />
@@ -395,6 +396,7 @@
   <ItemGroup>
     <ClInclude Include="Actor.h" />
     <ClInclude Include="Camera.h" />
+    <ClInclude Include="Character.h" />
     <ClInclude Include="Core.h" />
     <ClInclude Include="dib.h" />
     <ClInclude Include="DxMain.h" />

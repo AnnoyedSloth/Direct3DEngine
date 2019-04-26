@@ -37,7 +37,7 @@ VOID World::render()
 		(*iter)->render();
 	}
 	//frustum->draw(d3dDevice, camera->GetPos());
-	if (terrain) terrain->render();
+	//if (terrain) terrain->render();
 }
 
 // Factory function which spawn derived classes of Actor

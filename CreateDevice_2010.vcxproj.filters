@@ -75,6 +75,9 @@
     <ClCompile Include="LogManager.cpp">
       <Filter>Managers</Filter>
     </ClCompile>
+    <ClCompile Include="Character.cpp">
+      <Filter>Utilities</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Actor.h">
@@ -118,6 +121,9 @@
     </ClInclude>
     <ClInclude Include="LogManager.h">
       <Filter>Managers</Filter>
+    </ClInclude>
+    <ClInclude Include="Character.h">
+      <Filter>Utilities</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
