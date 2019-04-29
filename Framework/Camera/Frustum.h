@@ -1,6 +1,6 @@
 #pragma once
-#include "Camera.h"
-#include "Core.h"
+#include "Camera/Camera.h"
+#include "Core/Core.h"
 
 //class Camera;
 

@@ -36,93 +36,93 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="DxMain.cpp">
-      <Filter>Rendering</Filter>
+    <ClCompile Include="Framework\Camera\Camera.cpp">
+      <Filter>Camera</Filter>
     </ClCompile>
-    <ClCompile Include="Actor.cpp">
-      <Filter>Utilities</Filter>
+    <ClCompile Include="Framework\Camera\Frustum.cpp">
+      <Filter>Camera</Filter>
     </ClCompile>
-    <ClCompile Include="Object.cpp">
-      <Filter>Utilities</Filter>
-    </ClCompile>
-    <ClCompile Include="Main.cpp">
+    <ClCompile Include="Framework\Core\Main.cpp">
       <Filter>Core</Filter>
     </ClCompile>
-    <ClCompile Include="World.cpp">
-      <Filter>Utilities</Filter>
-    </ClCompile>
-    <ClCompile Include="TimeManager.cpp">
-      <Filter>Managers</Filter>
-    </ClCompile>
-    <ClCompile Include="InputManager.cpp">
-      <Filter>Managers</Filter>
-    </ClCompile>
-    <ClCompile Include="Terrain.cpp">
-      <Filter>Terrain</Filter>
-    </ClCompile>
-    <ClCompile Include="dib.cpp">
+    <ClCompile Include="Framework\ExternalLibrary\Dib.cpp">
       <Filter>ExternalLibrary</Filter>
     </ClCompile>
-    <ClCompile Include="QuadTree.cpp">
-      <Filter>Terrain</Filter>
-    </ClCompile>
-    <ClCompile Include="Frustum.cpp">
-      <Filter>Camera</Filter>
-    </ClCompile>
-    <ClCompile Include="Camera.cpp">
-      <Filter>Camera</Filter>
-    </ClCompile>
-    <ClCompile Include="LogManager.cpp">
+    <ClCompile Include="Framework\Managers\InputManager.cpp">
       <Filter>Managers</Filter>
     </ClCompile>
-    <ClCompile Include="Character.cpp">
+    <ClCompile Include="Framework\Managers\LogManager.cpp">
+      <Filter>Managers</Filter>
+    </ClCompile>
+    <ClCompile Include="Framework\Managers\TimeManager.cpp">
+      <Filter>Managers</Filter>
+    </ClCompile>
+    <ClCompile Include="Framework\Rendering\DxMain.cpp">
+      <Filter>Rendering</Filter>
+    </ClCompile>
+    <ClCompile Include="Framework\Terrain\QuadTree.cpp">
+      <Filter>Terrain</Filter>
+    </ClCompile>
+    <ClCompile Include="Framework\Terrain\Terrain.cpp">
+      <Filter>Terrain</Filter>
+    </ClCompile>
+    <ClCompile Include="Framework\Utilities\Actor.cpp">
+      <Filter>Utilities</Filter>
+    </ClCompile>
+    <ClCompile Include="Framework\Utilities\Character.cpp">
+      <Filter>Utilities</Filter>
+    </ClCompile>
+    <ClCompile Include="Framework\Utilities\Object.cpp">
+      <Filter>Utilities</Filter>
+    </ClCompile>
+    <ClCompile Include="Framework\Utilities\World.cpp">
       <Filter>Utilities</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Actor.h">
-      <Filter>Utilities</Filter>
+    <ClInclude Include="Framework\Camera\Camera.h">
+      <Filter>Camera</Filter>
     </ClInclude>
-    <ClInclude Include="DxMain.h">
-      <Filter>Rendering</Filter>
+    <ClInclude Include="Framework\Camera\Frustum.h">
+      <Filter>Camera</Filter>
     </ClInclude>
-    <ClInclude Include="Object.h">
-      <Filter>Utilities</Filter>
-    </ClInclude>
-    <ClInclude Include="Core.h">
+    <ClInclude Include="Framework\Core\Core.h">
       <Filter>Core</Filter>
     </ClInclude>
-    <ClInclude Include="World.h">
-      <Filter>Utilities</Filter>
-    </ClInclude>
-    <ClInclude Include="TimeManager.h">
-      <Filter>Managers</Filter>
-    </ClInclude>
-    <ClInclude Include="InputManager.h">
-      <Filter>Managers</Filter>
-    </ClInclude>
-    <ClInclude Include="Terrain.h">
-      <Filter>Terrain</Filter>
-    </ClInclude>
-    <ClInclude Include="dib.h">
+    <ClInclude Include="Framework\ExternalLibrary\Dib.h">
       <Filter>ExternalLibrary</Filter>
     </ClInclude>
-    <ClInclude Include="QuadTree.h">
-      <Filter>Terrain</Filter>
-    </ClInclude>
-    <ClInclude Include="TerrainVertex.h">
-      <Filter>Terrain</Filter>
-    </ClInclude>
-    <ClInclude Include="Frustum.h">
-      <Filter>Camera</Filter>
-    </ClInclude>
-    <ClInclude Include="Camera.h">
-      <Filter>Camera</Filter>
-    </ClInclude>
-    <ClInclude Include="LogManager.h">
+    <ClInclude Include="Framework\Managers\InputManager.h">
       <Filter>Managers</Filter>
     </ClInclude>
-    <ClInclude Include="Character.h">
+    <ClInclude Include="Framework\Managers\LogManager.h">
+      <Filter>Managers</Filter>
+    </ClInclude>
+    <ClInclude Include="Framework\Managers\TimeManager.h">
+      <Filter>Managers</Filter>
+    </ClInclude>
+    <ClInclude Include="Framework\Rendering\DxMain.h">
+      <Filter>Rendering</Filter>
+    </ClInclude>
+    <ClInclude Include="Framework\Terrain\QuadTree.h">
+      <Filter>Terrain</Filter>
+    </ClInclude>
+    <ClInclude Include="Framework\Terrain\Terrain.h">
+      <Filter>Terrain</Filter>
+    </ClInclude>
+    <ClInclude Include="Framework\Terrain\TerrainVertex.h">
+      <Filter>Terrain</Filter>
+    </ClInclude>
+    <ClInclude Include="Framework\Utilities\Actor.h">
+      <Filter>Utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="Framework\Utilities\Character.h">
+      <Filter>Utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="Framework\Utilities\Object.h">
+      <Filter>Utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="Framework\Utilities\World.h">
       <Filter>Utilities</Filter>
     </ClInclude>
   </ItemGroup>

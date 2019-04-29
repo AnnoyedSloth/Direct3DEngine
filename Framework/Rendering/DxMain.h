@@ -1,9 +1,11 @@
 #pragma once
-#include "Core.h"
-#include "Camera.h"
-#include "TimeManager.h"
-#include "World.h"
+#include "Core/Core.h"
+#include "Camera/Camera.h"
+#include "Managers/TimeManager.h"
+#include "Utilities/World.h"
 //#include "LogManager.h"
+
+class Frustum;
 
 class DxMain
 {

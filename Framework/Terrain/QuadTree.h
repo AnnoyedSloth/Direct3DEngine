@@ -1,7 +1,7 @@
 #pragma once
-#include "Core.h"
+#include "Core/Core.h"
 #include "TerrainVertex.h"
-#include "Frustum.h"
+#include "Camera/Frustum.h"
 
 #define IS_IN_RANGE(value,r0,r1) (( ((r0) <= (value)) && ((value) <= (r1)) ) ? 1 : 0)
 

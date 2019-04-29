@@ -1,6 +1,6 @@
 #pragma once
 #include "Object.h"
-#include "Core.h"
+#include "Core/Core.h"
 
 
 class Actor : public Object

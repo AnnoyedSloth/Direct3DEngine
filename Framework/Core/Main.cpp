@@ -13,7 +13,7 @@
 #pragma warning( default : 4996 )
 #include <d3dx9math.h>
 #pragma warning (default : 4996)
-#include "DxMain.h"
+#include "Rendering/DxMain.h"
 
 //-----------------------------------------------------------------------------
 // Name: MsgProc()

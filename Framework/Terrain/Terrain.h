@@ -1,8 +1,8 @@
 #pragma once
-#include "Frustum.h"
+#include "Camera/Frustum.h"
 #include "QuadTree.h"
-#include "Dib.h"
-#include "Core.h"
+#include "ExternalLibrary/Dib.h"
+#include "Core/Core.h"
 
 const int MAX_TERRAIN_TEXTURE = 4;
 

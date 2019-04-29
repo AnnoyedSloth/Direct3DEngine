@@ -1,14 +1,11 @@
-#include<d3d9.h>
+#include <d3d9.h>
 #pragma warning( disable : 4996 )
 #include <strsafe.h>
 #pragma warning( disable : 4996 )
 #include <d3dx9math.h>
 #pragma warning( disable : 4996 )
 #include "DxMain.h"
-#include "Camera.h"
-
-
-D3DXMATRIXA16 matProj;
+#include "Camera/Camera.h"
 
 DxMain::DxMain()
 {
@@ -82,12 +79,12 @@ HRESULT DxMain::initialize()
 		world->objs[a]->loadMesh(d3dDevice);
 	}
 
+	D3DXMATRIXA16 matProj;
+
 	// Setup projection transform
 	D3DXMatrixPerspectiveFovLH(&matProj, D3DX_PI / 4, 1.0f, 1.0f, 1000.0f);
 	d3dDevice->SetTransform(D3DTS_PROJECTION, &matProj);
 	camera->SetProj(&matProj);
-
-	D3DXMatrixPerspectiveFovLH(&matProj, D3DX_PI / 4, 1.0f, 1.0f, 500.0f);
 
 	return S_OK;
 }
@@ -98,7 +95,10 @@ VOID DxMain::setupFrustum()
 	D3DXMATRIXA16 *view;
 	view = camera->GetViewMatrix();
 
-	m = *view * matProj;
+	D3DXMATRIXA16 frustumMatProj;
+	D3DXMatrixPerspectiveFovLH(&frustumMatProj, D3DX_PI / 4, 1.0f, 1.0f, 500.0f);
+
+	m = *view *  frustumMatProj;
 
 	frustum->make(&m);
 }

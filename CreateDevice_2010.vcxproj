@@ -95,6 +95,7 @@
     <ExecutablePath>$(DXSDK_DIR)Utilities\bin\x86;$(ExecutablePath)</ExecutablePath>
     <IncludePath>$(DXSDK_DIR)Include;$(IncludePath)</IncludePath>
     <LibraryPath>$(DXSDK_DIR)Lib\x86;$(LibraryPath)</LibraryPath>
+    <SourcePath>$(SourcePath)</SourcePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|X64'">
     <LinkIncremental>true</LinkIncremental>
@@ -141,11 +142,12 @@
       <FloatingPointModel>Fast</FloatingPointModel>
       <EnableEnhancedInstructionSet>StreamingSIMDExtensions2</EnableEnhancedInstructionSet>
       <ExceptionHandling>Sync</ExceptionHandling>
-      <AdditionalIncludeDirectories>DXUT\Core;DXUT\Optional;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>DXUT\Core;DXUT\Optional;$(VC_SourcePath)Framework\%(AdditionalUsingDirectories);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AdditionalOptions> %(AdditionalOptions)</AdditionalOptions>
       <PreprocessorDefinitions>WIN32;_DEBUG;DEBUG;PROFILE;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+      <AdditionalUsingDirectories>%(AdditionalUsingDirectories)</AdditionalUsingDirectories>
     </ClCompile>
     <Link>
       <AdditionalOptions> %(AdditionalOptions)</AdditionalOptions>
@@ -376,40 +378,40 @@
     <None Include="DXUT\Optional\directx.ico" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Actor.cpp" />
-    <ClCompile Include="Camera.cpp" />
-    <ClCompile Include="Character.cpp" />
-    <ClCompile Include="dib.cpp" />
-    <ClCompile Include="Frustum.cpp" />
-    <ClCompile Include="InputManager.cpp" />
-    <ClCompile Include="LogManager.cpp" />
-    <ClCompile Include="Main.cpp" />
-    <ClCompile Include="DxMain.cpp" />
-    <ClCompile Include="Object.cpp" />
-    <ClCompile Include="QuadTree.cpp" />
-    <ClCompile Include="Terrain.cpp" />
-    <ClCompile Include="TimeManager.cpp" />
-    <ClCompile Include="World.cpp" />
+    <ClCompile Include="Framework\Camera\Camera.cpp" />
+    <ClCompile Include="Framework\Camera\Frustum.cpp" />
+    <ClCompile Include="Framework\Core\Main.cpp" />
+    <ClCompile Include="Framework\ExternalLibrary\Dib.cpp" />
+    <ClCompile Include="Framework\Managers\InputManager.cpp" />
+    <ClCompile Include="Framework\Managers\LogManager.cpp" />
+    <ClCompile Include="Framework\Managers\TimeManager.cpp" />
+    <ClCompile Include="Framework\Rendering\DxMain.cpp" />
+    <ClCompile Include="Framework\Terrain\QuadTree.cpp" />
+    <ClCompile Include="Framework\Terrain\Terrain.cpp" />
+    <ClCompile Include="Framework\Utilities\Actor.cpp" />
+    <ClCompile Include="Framework\Utilities\Character.cpp" />
+    <ClCompile Include="Framework\Utilities\Object.cpp" />
+    <ClCompile Include="Framework\Utilities\World.cpp" />
   </ItemGroup>
   <ItemGroup>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Actor.h" />
-    <ClInclude Include="Camera.h" />
-    <ClInclude Include="Character.h" />
-    <ClInclude Include="Core.h" />
-    <ClInclude Include="dib.h" />
-    <ClInclude Include="DxMain.h" />
-    <ClInclude Include="Frustum.h" />
-    <ClInclude Include="InputManager.h" />
-    <ClInclude Include="LogManager.h" />
-    <ClInclude Include="Object.h" />
-    <ClInclude Include="QuadTree.h" />
+    <ClInclude Include="Framework\Camera\Camera.h" />
+    <ClInclude Include="Framework\Camera\Frustum.h" />
+    <ClInclude Include="Framework\Core\Core.h" />
+    <ClInclude Include="Framework\ExternalLibrary\Dib.h" />
+    <ClInclude Include="Framework\Managers\InputManager.h" />
+    <ClInclude Include="Framework\Managers\LogManager.h" />
+    <ClInclude Include="Framework\Managers\TimeManager.h" />
+    <ClInclude Include="Framework\Rendering\DxMain.h" />
+    <ClInclude Include="Framework\Terrain\QuadTree.h" />
+    <ClInclude Include="Framework\Terrain\Terrain.h" />
+    <ClInclude Include="Framework\Terrain\TerrainVertex.h" />
+    <ClInclude Include="Framework\Utilities\Actor.h" />
+    <ClInclude Include="Framework\Utilities\Character.h" />
+    <ClInclude Include="Framework\Utilities\Object.h" />
+    <ClInclude Include="Framework\Utilities\World.h" />
     <CLInclude Include="resource.h" />
-    <ClInclude Include="Terrain.h" />
-    <ClInclude Include="TerrainVertex.h" />
-    <ClInclude Include="TimeManager.h" />
-    <ClInclude Include="World.h" />
     <ResourceCompile Include="CreateDevice.rc" />
   </ItemGroup>
   <ItemGroup>

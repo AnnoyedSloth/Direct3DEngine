@@ -1,9 +1,9 @@
 #pragma once
 
-#include "TimeManager.h"
-#include "Terrain.h"
+#include "Managers/TimeManager.h"
+#include "Terrain/Terrain.h"
 #include "Actor.h"
-#include "Core.h"
+#include "Core/Core.h"
 
 class Camera;
 
