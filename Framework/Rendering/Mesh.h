@@ -6,6 +6,4 @@ class Mesh
 {
 public:
 	Mesh();
-	BOOL importFbx(LPWSTR name);
-	void loadNode(FbxNode* node);
 };

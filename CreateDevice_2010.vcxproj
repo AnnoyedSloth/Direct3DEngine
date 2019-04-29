@@ -142,16 +142,17 @@
       <FloatingPointModel>Fast</FloatingPointModel>
       <EnableEnhancedInstructionSet>StreamingSIMDExtensions2</EnableEnhancedInstructionSet>
       <ExceptionHandling>Sync</ExceptionHandling>
-      <AdditionalIncludeDirectories>DXUT\Core;DXUT\Optional;$(VC_SourcePath)Framework\%(AdditionalUsingDirectories);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Program Files\Autodesk\FBX\FBX SDK\2019.0\include\;DXUT\Core;DXUT\Optional;$(VC_SourcePath)Framework\%(AdditionalUsingDirectories);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AdditionalOptions> %(AdditionalOptions)</AdditionalOptions>
-      <PreprocessorDefinitions>WIN32;_DEBUG;DEBUG;PROFILE;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;_DEBUG;DEBUG;PROFILE;_WINDOWS;FBXSDK_SHARED;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
       <AdditionalUsingDirectories>%(AdditionalUsingDirectories)</AdditionalUsingDirectories>
+      <MinimalRebuild>true</MinimalRebuild>
     </ClCompile>
     <Link>
       <AdditionalOptions> %(AdditionalOptions)</AdditionalOptions>
-      <AdditionalDependencies>d3d9.lib;d3dx10d.lib;d3dx9d.lib;dxerr.lib;dxguid.lib;winmm.lib;comctl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>d3d9.lib;d3dx10d.lib;d3dx9d.lib;dxerr.lib;dxguid.lib;winmm.lib;comctl32.lib;libfbxsdk.lib;wininet.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <LargeAddressAware>false</LargeAddressAware>
@@ -160,6 +161,8 @@
       <TargetMachine>MachineX86</TargetMachine>
       <UACExecutionLevel>AsInvoker</UACExecutionLevel>
       <DelayLoadDLLs>%(DelayLoadDLLs)</DelayLoadDLLs>
+      <AdditionalLibraryDirectories>C:\Program Files\Autodesk\FBX\FBX SDK\2019.0\lib\vs2015\x86\debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <IgnoreSpecificDefaultLibraries>LIBCMT;%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
     </Link>
     <Manifest>
       <EnableDPIAwareness>true</EnableDPIAwareness>
@@ -382,10 +385,12 @@
     <ClCompile Include="Framework\Camera\Frustum.cpp" />
     <ClCompile Include="Framework\Core\Main.cpp" />
     <ClCompile Include="Framework\ExternalLibrary\Dib.cpp" />
+    <ClCompile Include="Framework\FbxManager\FbxManager.cpp" />
     <ClCompile Include="Framework\Managers\InputManager.cpp" />
     <ClCompile Include="Framework\Managers\LogManager.cpp" />
     <ClCompile Include="Framework\Managers\TimeManager.cpp" />
     <ClCompile Include="Framework\Rendering\DxMain.cpp" />
+    <ClCompile Include="Framework\Rendering\Mesh.cpp" />
     <ClCompile Include="Framework\Terrain\QuadTree.cpp" />
     <ClCompile Include="Framework\Terrain\Terrain.cpp" />
     <ClCompile Include="Framework\Utilities\Actor.cpp" />
@@ -400,10 +405,12 @@
     <ClInclude Include="Framework\Camera\Frustum.h" />
     <ClInclude Include="Framework\Core\Core.h" />
     <ClInclude Include="Framework\ExternalLibrary\Dib.h" />
+    <ClInclude Include="Framework\FbxManager\FbxManager.h" />
     <ClInclude Include="Framework\Managers\InputManager.h" />
     <ClInclude Include="Framework\Managers\LogManager.h" />
     <ClInclude Include="Framework\Managers\TimeManager.h" />
     <ClInclude Include="Framework\Rendering\DxMain.h" />
+    <ClInclude Include="Framework\Rendering\Mesh.h" />
     <ClInclude Include="Framework\Terrain\QuadTree.h" />
     <ClInclude Include="Framework\Terrain\Terrain.h" />
     <ClInclude Include="Framework\Terrain\TerrainVertex.h" />

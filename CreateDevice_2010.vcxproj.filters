@@ -29,6 +29,9 @@
     <Filter Include="Camera">
       <UniqueIdentifier>{49efd80f-9a7c-4402-a1a5-fc2b8aec22bb}</UniqueIdentifier>
     </Filter>
+    <Filter Include="FbxManager">
+      <UniqueIdentifier>{23b8f906-0ae7-41af-a5c0-b71964813e8a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="DXUT\Optional\directx.ico">
@@ -78,6 +81,12 @@
     <ClCompile Include="Framework\Utilities\World.cpp">
       <Filter>Utilities</Filter>
     </ClCompile>
+    <ClCompile Include="Framework\FbxManager\FbxManager.cpp">
+      <Filter>FbxManager</Filter>
+    </ClCompile>
+    <ClCompile Include="Framework\Rendering\Mesh.cpp">
+      <Filter>Rendering</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Framework\Camera\Camera.h">
@@ -124,6 +133,12 @@
     </ClInclude>
     <ClInclude Include="Framework\Utilities\World.h">
       <Filter>Utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="Framework\FbxManager\FbxManager.h">
+      <Filter>FbxManager</Filter>
+    </ClInclude>
+    <ClInclude Include="Framework\Rendering\Mesh.h">
+      <Filter>Rendering</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
