@@ -6,3 +6,6 @@
 #include <vector>
 #include <map>
 #include <unordered_map>
+
+typedef D3DXVECTOR3 Vector3;
+typedef D3DXVECTOR2 Vector2;

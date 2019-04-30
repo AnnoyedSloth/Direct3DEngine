@@ -26,6 +26,8 @@ VOID World::initialize(LPDIRECT3DDEVICE9 d3dDevice, Camera* camera, Frustum* fru
 	terrain = new Terrain();
 	terrain->create(d3dDevice, frustum, &D3DXVECTOR3(1.0f, 0.1f, 1.0f), 0.05,
 		(LPSTR)"Textures/map129.bmp", tex);
+	Mesh myMesh;
+	myMesh.createVIB();
 }
 
 VOID World::render()

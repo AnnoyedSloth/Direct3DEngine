@@ -3,6 +3,7 @@
 #include "Managers/TimeManager.h"
 #include "Terrain/Terrain.h"
 #include "Actor.h"
+#include "Rendering/Mesh.h"
 #include "Core/Core.h"
 
 class Camera;

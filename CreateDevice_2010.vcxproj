@@ -411,6 +411,7 @@
     <ClInclude Include="Framework\Managers\TimeManager.h" />
     <ClInclude Include="Framework\Rendering\DxMain.h" />
     <ClInclude Include="Framework\Rendering\Mesh.h" />
+    <ClInclude Include="Framework\Rendering\VertexData.h" />
     <ClInclude Include="Framework\Terrain\QuadTree.h" />
     <ClInclude Include="Framework\Terrain\Terrain.h" />
     <ClInclude Include="Framework\Terrain\TerrainVertex.h" />

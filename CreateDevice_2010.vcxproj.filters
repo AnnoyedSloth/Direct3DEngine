@@ -140,6 +140,9 @@
     <ClInclude Include="Framework\Rendering\Mesh.h">
       <Filter>Rendering</Filter>
     </ClInclude>
+    <ClInclude Include="Framework\Rendering\VertexData.h">
+      <Filter>Rendering</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <CLInclude Include="resource.h">
