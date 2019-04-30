@@ -10,13 +10,12 @@
 class FbxLoadMgr
 {
 	FbxManager* manager;
-	FbxIOSettings* ios;
-	FbxImporter* importer;
 
 	FbxScene* scene;
 	Vector3* pos;
 	VertexData* vertexInfo;
 	unsigned int vertices;
+	unsigned int indexes;
 
 public:
 	FbxLoadMgr();
@@ -31,4 +30,6 @@ public:
 	Vector3 ReadTangent(FbxMesh* mesh, int controlPointIndex, int vertexCounter);
 
 	VertexData* GetData() { return vertexInfo; }
+	unsigned int GetVertexCount() const { return vertices; }
+	unsigned int GetIndexCount() const { return indexes; }
 };

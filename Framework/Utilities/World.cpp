@@ -26,8 +26,9 @@ VOID World::initialize(LPDIRECT3DDEVICE9 d3dDevice, Camera* camera, Frustum* fru
 	terrain = new Terrain();
 	terrain->create(d3dDevice, frustum, &D3DXVECTOR3(1.0f, 0.1f, 1.0f), 0.05,
 		(LPSTR)"Textures/map129.bmp", tex);
-	Mesh myMesh;
-	myMesh.createVIB();
+
+	myMesh = new Mesh(d3dDevice);
+	myMesh->createVIB();
 }
 
 VOID World::render()
@@ -35,9 +36,10 @@ VOID World::render()
 
 	for (auto iter = objs.begin(); iter != objs.end(); ++iter)
 	{
-		(*iter)->tick(time->deltaTime);
-		(*iter)->render();
+		//(*iter)->tick(time->deltaTime);
+		//(*iter)->render();
 	}
+	myMesh->render();
 	//frustum->draw(d3dDevice, camera->GetPos());
 	//if (terrain) terrain->render();
 }

@@ -1,6 +1,7 @@
 #pragma once
 #include "fbxsdk.h"
 #include "FbxManager/FbxManager.h"
+#include "Rendering/VertexData.h"
 #include "Core/Core.h"
 
 const int MAX_TEXTURES_COUNT = 4;
@@ -24,4 +25,5 @@ public:
 	Mesh();
 	Mesh(LPDIRECT3DDEVICE9 device);
 	void createVIB();
+	void render();
 };

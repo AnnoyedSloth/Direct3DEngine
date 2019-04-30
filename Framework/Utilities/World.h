@@ -20,6 +20,7 @@ public:
 
 	Terrain* terrain;
 	std::vector<Actor*> objs;
+	Mesh* myMesh;
 	Camera* camera;
 	
 	VOID initialize(LPDIRECT3DDEVICE9 d3dDevice, Camera* camera, Frustum* frustum, TimeManager* timeMgr);

@@ -10,3 +10,8 @@ struct VertexData
 	Vector3 tangent;
 	Vector2 uv;
 };
+
+struct MyIndex
+{
+	DWORD _0, _1, _2;
+};

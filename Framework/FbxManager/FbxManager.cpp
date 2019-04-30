@@ -8,8 +8,7 @@ FbxLoadMgr::FbxLoadMgr()
 FbxLoadMgr::~FbxLoadMgr()
 {
 	if(manager) manager->Destroy();
-	if(ios) ios->Destroy();
-	if(importer) importer->Destroy();
+	//if(importer) importer->Destroy();
 	delete[] vertexInfo;
 }
 
@@ -21,7 +20,8 @@ BOOL FbxLoadMgr::importFbx(const char* name)
 	manager = FbxManager::Create();
 
 	// Which can setup Fbx's Input/Output options
-	ios = FbxIOSettings::Create(manager, IOSROOT);
+
+	FbxIOSettings* ios = FbxIOSettings::Create(manager, IOSROOT);
 	manager->SetIOSettings(ios);
 
 	manager->GetIOSettings()->SetBoolProp(IMP_FBX_MODEL, true);
@@ -30,7 +30,7 @@ BOOL FbxLoadMgr::importFbx(const char* name)
 	manager->GetIOSettings()->SetBoolProp(IMP_FBX_SHAPE, true);
 	manager->GetIOSettings()->SetBoolProp(IMP_FBX_ANIMATION, true);
 
-	importer = FbxImporter::Create(manager, "");
+	FbxImporter* importer = FbxImporter::Create(manager, "");
 
 	const bool status = importer->Initialize((char*)(fileName), -1, manager->GetIOSettings());
 
@@ -85,54 +85,47 @@ void FbxLoadMgr::loadNode(FbxNode* node)
 void FbxLoadMgr::processControlPoints(FbxMesh* mesh)
 {
 	// Count the number of Index points
-	unsigned int indexedCount = mesh->GetControlPointsCount();
-
-	unsigned int polygonCount = mesh->GetPolygonCount();
+	unsigned int indexedCount = indexes = mesh->GetControlPointsCount();
 
 	// Dynamically allocate Vertex data as much as index points get
-	//pos = new Vector3[indexedCount];
-	vertexInfo = new VertexData[indexedCount];
+	pos = new Vector3[indexedCount];
 
-	//for (int i = 0; i < indexedCount; ++i)
-	//{
-	//	pos[i].x = static_cast<float>
-	//		(mesh->GetControlPointAt(i).mData[0]);
-	//	pos[i].y = static_cast<float>
-	//		(mesh->GetControlPointAt(i).mData[1]);
-	//	pos[i].z = static_cast<float>
-	//		(mesh->GetControlPointAt(i).mData[2]);
-	//}
+	for (int i = 0; i < indexedCount; ++i)
+	{
+		pos[i].x = static_cast<float>
+			(mesh->GetControlPointAt(i).mData[0]);
+		pos[i].y = static_cast<float>
+			(mesh->GetControlPointAt(i).mData[1]);
+		pos[i].z = static_cast<float>
+			(mesh->GetControlPointAt(i).mData[2]);
+	}
+	
+	unsigned int polygonCount = mesh->GetPolygonCount();
+	vertices = polygonCount * 3;
+
+	// Dynamically allocate as much as amount of vertex demand
+	vertexInfo = new VertexData[polygonCount*3];
+
 	int vertexCounter = 0;
 
 	for (unsigned int i = 0; i < polygonCount; ++i)
 	{
 		for (unsigned int j = 0; j < 3; ++j)
 		{
-
 			int controlPointIdx = mesh->GetPolygonVertex(i, j);
 
-			vertexInfo[controlPointIdx].pos.x =
-				static_cast<float>(mesh->GetControlPointAt(controlPointIdx).mData[0]);
-			vertexInfo[controlPointIdx].pos.y =
-				static_cast<float>(mesh->GetControlPointAt(controlPointIdx).mData[1]);
-			vertexInfo[controlPointIdx].pos.z =
-				static_cast<float>(mesh->GetControlPointAt(controlPointIdx).mData[2]);
+			Vector3& position = pos[controlPointIdx];
 			
-			vertexInfo[controlPointIdx].normal = ReadNormal(mesh, controlPointIdx, vertexCounter);
-			vertexInfo[controlPointIdx].uv = ReadUV(mesh, controlPointIdx, vertexCounter, vertexCounter);
-			vertexInfo[controlPointIdx].binormal = ReadBinormal(mesh, controlPointIdx, vertexCounter);
-			vertexInfo[controlPointIdx].tangent = ReadTangent(mesh, controlPointIdx, vertexCounter);
+			Vector3 normal = ReadNormal(mesh, controlPointIdx, vertexCounter);
+			Vector3 binormal = ReadBinormal(mesh, controlPointIdx, vertexCounter);
+			Vector3 tangent = ReadTangent(mesh, controlPointIdx, vertexCounter);
+			Vector2 uv = ReadUV(mesh, controlPointIdx, vertexCounter, vertexCounter);
+
+			vertexInfo[i * 3 + j] = { position, normal, binormal, tangent, uv };
 
 			++vertexCounter;
 		}
 	}
-
-	//for (unsigned int i = 0; i < indexedCount; ++i)
-	//{
-	//	vertexInfo[i].pos.x = static_cast<float>(mesh->GetControlPointAt(i).mData[0]);
-	//	vertexInfo[i].pos.y = static_cast<float>(mesh->GetControlPointAt(i).mData[1]);
-	//	vertexInfo[i].pos.z = static_cast<float>(mesh->GetControlPointAt(i).mData[2]);
-	//}
 }
 
 // Referenced function by https://github.com/TheCherno/Sparky
