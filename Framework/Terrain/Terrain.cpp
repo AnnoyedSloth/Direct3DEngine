@@ -37,7 +37,7 @@ Terrain::Terrain()
 
 Terrain::~Terrain()
 {
-
+	delete quadTree;
 }
 
 HRESULT Terrain::create(LPDIRECT3DDEVICE9 d3dDevice, Frustum* frustum, D3DXVECTOR3* scale, float ratioLOD, LPSTR bmpName, LPSTR texName[MAX_TERRAIN_TEXTURE])

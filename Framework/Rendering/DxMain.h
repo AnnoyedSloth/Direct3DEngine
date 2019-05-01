@@ -7,7 +7,7 @@
 
 class Frustum;
 
-class DxMain
+static class DxMain
 {
 private:
 	LPDIRECT3D9 d3d;

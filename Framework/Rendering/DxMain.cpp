@@ -7,6 +7,7 @@
 #include "DxMain.h"
 #include "Camera/Camera.h"
 
+
 DxMain::DxMain()
 {
 	d3d = NULL;
