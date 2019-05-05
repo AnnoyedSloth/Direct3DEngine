@@ -19,7 +19,7 @@ int	Pow2(int n)
 	return val;
 }
 
-Terrain::Terrain()
+Terrain::Terrain() : Object()
 {
 	xPxl = 0;
 	zPxl = 0;
@@ -42,7 +42,8 @@ Terrain::~Terrain()
 
 HRESULT Terrain::create(LPDIRECT3DDEVICE9 d3dDevice, Frustum* frustum, D3DXVECTOR3* scale, float ratioLOD, LPSTR bmpName, LPSTR texName[MAX_TERRAIN_TEXTURE])
 {
-	this->d3dDevice = d3dDevice;
+
+	initialize(d3dDevice);
 	this->scale = *scale;
 	this->ratioLOD = ratioLOD;
 	this->frustum = frustum;
@@ -178,17 +179,17 @@ HRESULT	Terrain::createVIB()
 	return S_OK;
 }
 
-HRESULT Terrain::render()
+void Terrain::render(float deltaTime)
 {
 	LPDWORD		pI;
 
 	if (FAILED(iBuffer->Lock(0, (xPxl - 1)*(zPxl - 1) * 2 * sizeof(TRIINDEX), (void**)&pI, 0)))
-		return E_FAIL;
+		return;
 	triangles =quadTree->generateIndex(pI, heightMap, frustum, ratioLOD);
 	iBuffer->Unlock();
 
 	D3DXMATRIXA16 pos;
-	D3DXMatrixTranslation(&pos, 0, 0, 0);
+	D3DXMatrixTranslation(&pos, location.x, location.y, location.z);
 	d3dDevice->SetTransform(D3DTS_WORLD, &pos);
 
 	materials->Diffuse.r;//= materials->Ambient.r = 1.0f;
@@ -218,6 +219,5 @@ HRESULT Terrain::render()
 	d3dDevice->SetIndices(iBuffer);
 	d3dDevice->DrawIndexedPrimitive(D3DPT_TRIANGLELIST, 0, 0, xPxl * zPxl, 0, triangles);
 
-	return S_OK;
 }
 

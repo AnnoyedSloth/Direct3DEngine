@@ -1,12 +1,13 @@
 #pragma once
 #include "Camera/Frustum.h"
+#include "Utilities/Object.h"
 #include "QuadTree.h"
 #include "ExternalLibrary/Dib.h"
 #include "Core/Core.h"
 
 const int MAX_TERRAIN_TEXTURE = 4;
 
-class Terrain
+class Terrain : public Object
 {
 
 	int xPxl;
@@ -35,7 +36,7 @@ public:
 	Terrain();
 	~Terrain();
 
-
+	virtual void initialize(LPDIRECT3DDEVICE9 d3dDevice) { this->d3dDevice = d3dDevice; }
 	HRESULT create(LPDIRECT3DDEVICE9 d3dDevice, Frustum* frustum, D3DXVECTOR3* scale, float ratio, LPSTR bmpName, LPSTR texName[MAX_TERRAIN_TEXTURE]);
 
 	TERRAINVERTEX* getVertex(int x, int z) { return (heightMap + x + z * xPxl); }
@@ -47,7 +48,7 @@ public:
 	float getYTerrain() { return yPxl * scale.y; }
 	float getZTerrain() { return zPxl * scale.z; }
 
-	HRESULT render();
+	virtual void render(float deltaTime);
 
 
 };

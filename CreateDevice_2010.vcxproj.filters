@@ -32,6 +32,9 @@
     <Filter Include="FbxManager">
       <UniqueIdentifier>{23b8f906-0ae7-41af-a5c0-b71964813e8a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Shader">
+      <UniqueIdentifier>{c5e602be-f577-4469-bb75-5461d84f4f81}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="DXUT\Optional\directx.ico">
@@ -142,6 +145,12 @@
     </ClInclude>
     <ClInclude Include="Framework\Rendering\VertexData.h">
       <Filter>Rendering</Filter>
+    </ClInclude>
+    <ClInclude Include="Framework\Shader\Light.h">
+      <Filter>Shader</Filter>
+    </ClInclude>
+    <ClInclude Include="Framework\Shader\DirectionalLight.h">
+      <Filter>Shader</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

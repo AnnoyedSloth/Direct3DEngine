@@ -18,13 +18,12 @@ public:
 	World();
 	~World();
 
-	Terrain* terrain;
-	std::vector<Actor*> objs;
-	Mesh* myMesh;
+	std::vector<Object*> objs;
+	//Mesh* myMesh;
 	Camera* camera;
 	
-	VOID initialize(LPDIRECT3DDEVICE9 d3dDevice, Camera* camera, Frustum* frustum, TimeManager* timeMgr);
-	VOID render();
+	void initialize(LPDIRECT3DDEVICE9 d3dDevice, Camera* camera, Frustum* frustum, TimeManager* timeMgr);
+	void render();
 
 	const TimeManager* getTime() const { return time; }
 

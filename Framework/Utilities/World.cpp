@@ -7,10 +7,10 @@ World::World()
 
 World::~World()
 {
-	if (terrain) delete terrain;
+
 }
 
-VOID World::initialize(LPDIRECT3DDEVICE9 d3dDevice, Camera* camera, Frustum* frustum, TimeManager* timeMgr)
+void World::initialize(LPDIRECT3DDEVICE9 d3dDevice, Camera* camera, Frustum* frustum, TimeManager* timeMgr)
 {	
 	this->d3dDevice = d3dDevice;
 	this->camera = camera;
@@ -23,25 +23,29 @@ VOID World::initialize(LPDIRECT3DDEVICE9 d3dDevice, Camera* camera, Frustum* fru
 
 	LPSTR tex[4] = { "tile2.tga", "lightmap.tga", "", "" };
 
-	terrain = new Terrain();
+	Terrain* terrain = new Terrain();
 	terrain->create(d3dDevice, frustum, &D3DXVECTOR3(1.0f, 0.1f, 1.0f), 0.05,
 		(LPSTR)"Textures/map129.bmp", tex);
+	objs.push_back(terrain);
 
-	myMesh = new Mesh(d3dDevice);
-	myMesh->createVIB();
+	for (unsigned int a = 0; a < objs.size(); ++a)
+	{
+		objs[a]->initialize(d3dDevice);
+	}
+
+	//myMesh = new Mesh(d3dDevice);
+	//myMesh->createVIB();
 }
 
-VOID World::render()
+void World::render()
 {
 
 	for (auto iter = objs.begin(); iter != objs.end(); ++iter)
 	{
-		//(*iter)->tick(time->deltaTime);
-		//(*iter)->render();
+		(*iter)->render(time->deltaTime);
 	}
-	myMesh->render();
+	//myMesh->render();
 	//frustum->draw(d3dDevice, camera->GetPos());
-	//if (terrain) terrain->render();
 }
 
 // Factory function which spawn derived classes of Actor

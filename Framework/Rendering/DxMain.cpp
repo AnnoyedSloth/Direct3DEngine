@@ -75,10 +75,7 @@ HRESULT DxMain::initialize()
 
 	world->initialize(d3dDevice, camera, frustum, time);
 
-	for (unsigned int a = 0; a < world->objs.size(); ++a)
-	{
-		world->objs[a]->loadMesh(d3dDevice);
-	}
+
 
 	D3DXMATRIXA16 matProj;
 

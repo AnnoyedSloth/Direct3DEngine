@@ -161,16 +161,4 @@ BOOL Frustum::draw(LPDIRECT3DDEVICE9 d3dDevice, const D3DXVECTOR3* cameraPos)
 void MakePlane(D3DXPLANE* pPlane, D3DXVECTOR3* pv0, D3DXVECTOR3* pv1, D3DXVECTOR3* pv2)
 {
 	D3DXPlaneFromPoints(pPlane, pv0, pv1, pv2);
-	//  평면의 방정식을 직접 유도하는 소스
-	//	for OpenGL
-	//	D3DXVECTOR3	v0, v1, v2;
-	//	v1 = *pv1 - *pv0;
-	//	v2 = *pv2 - *pv0;
-	//	D3DXVec3Cross( &v0, &v1, &v2 );
-	//	D3DXVec3Normalize( &v0, &v0 );
-
-	//	pPlane->a = v0.x;
-	//	pPlane->b = v0.y;
-	//	pPlane->c = v0.z;
-	//	pPlane->d = -( v0.x * pv0->x + v0.y * pv0->y + v0.z * pv0->z );
 }
