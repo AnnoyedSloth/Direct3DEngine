@@ -19,7 +19,7 @@ public:
 	~World();
 
 	std::vector<Object*> objs;
-	//Mesh* myMesh;
+	Mesh* myMesh;
 	Camera* camera;
 	
 	void initialize(LPDIRECT3DDEVICE9 d3dDevice, Camera* camera, Frustum* frustum, TimeManager* timeMgr);

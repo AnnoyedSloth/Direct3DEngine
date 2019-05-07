@@ -204,7 +204,6 @@ int QuadTree::generateTriIndex(int tris, LPVOID index, TERRAINVERTEX* heightMap,
 
 int QuadTree::isInFrustum(TERRAINVERTEX* heightMap, Frustum* frustum)
 {
-	BOOL	b[4];
 	BOOL	inSphere;
 
 	// 경계구안에 있는가?
@@ -213,26 +212,21 @@ int QuadTree::isInFrustum(TERRAINVERTEX* heightMap, Frustum* frustum)
 	if (!inSphere) return FRUSTUM_OUT;
 
 	// 쿼드트리의 4군데 경계 프러스텀 테스트
-	b[0] = frustum->isIn((D3DXVECTOR3*)(heightMap + corner[0]));
-	b[1] = frustum->isIn((D3DXVECTOR3*)(heightMap + corner[1]));
-	b[2] = frustum->isIn((D3DXVECTOR3*)(heightMap + corner[2]));
-	b[3] = frustum->isIn((D3DXVECTOR3*)(heightMap + corner[3]));
+	for (int a = 0; a < 4; ++a)
+	{
+		if (!frustum->isIn((D3DXVECTOR3*)(heightMap + corner[a]))) return FRUSTUM_PARTIALLY_IN;
+	}
 
-	// 4개모두 프러스텀 안에 있음
-	if ((b[0] + b[1] + b[2] + b[3]) == 4) return FRUSTUM_COMPLETELY_IN;
+	return FRUSTUM_COMPLETELY_IN;
 
-	// 일부분이 프러스텀에 있는 경우
-	return FRUSTUM_PARTIALLY_IN;
 }
 
 void	QuadTree::allInFrustum()
 {
 	culled = FALSE;
 	if (!child[0]) return;
-	child[0]->allInFrustum();
-	child[1]->allInFrustum();
-	child[2]->allInFrustum();
-	child[3]->allInFrustum();
+	for(int a=0; a<4; ++a) 	child[a]->allInFrustum();
+
 }
 
 void QuadTree::frustumCull(TERRAINVERTEX* heightMap, Frustum* frustum)
@@ -253,10 +247,11 @@ void QuadTree::frustumCull(TERRAINVERTEX* heightMap, Frustum* frustum)
 		culled = TRUE;
 		return;
 	}
-	if (child[0]) child[0]->frustumCull(heightMap, frustum);
-	if (child[1]) child[1]->frustumCull(heightMap, frustum);
-	if (child[2]) child[2]->frustumCull(heightMap, frustum);
-	if (child[3]) child[3]->frustumCull(heightMap, frustum);
+
+	for (int a = 0; a < 4; ++a)
+	{
+		if (child[a]) child[a]->frustumCull(heightMap, frustum);
+	}
 }
 
 int	QuadTree::getNodeIndex(int ed, int cx, int& _0, int& _1, int& _2, int& _3)

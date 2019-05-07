@@ -10,6 +10,7 @@ FbxLoadMgr::~FbxLoadMgr()
 	if(manager) manager->Destroy();
 	//if(importer) importer->Destroy();
 	delete[] vertexInfo;
+	delete[] pos;
 }
 
 BOOL FbxLoadMgr::importFbx(const char* name)
