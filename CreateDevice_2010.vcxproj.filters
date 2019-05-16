@@ -35,6 +35,9 @@
     <Filter Include="Shader">
       <UniqueIdentifier>{c5e602be-f577-4469-bb75-5461d84f4f81}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Rendering\Animation">
+      <UniqueIdentifier>{e7b69937-f38e-4fe8-a91e-2d492b5c2259}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="DXUT\Optional\directx.ico">
@@ -89,6 +92,9 @@
     </ClCompile>
     <ClCompile Include="Framework\Rendering\Mesh.cpp">
       <Filter>Rendering</Filter>
+    </ClCompile>
+    <ClCompile Include="Framework\Rendering\Tracks.cpp">
+      <Filter>Rendering\Animation</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -151,6 +157,12 @@
     </ClInclude>
     <ClInclude Include="Framework\Shader\DirectionalLight.h">
       <Filter>Shader</Filter>
+    </ClInclude>
+    <ClInclude Include="Framework\Rendering\AnimDefine.h">
+      <Filter>Rendering\Animation</Filter>
+    </ClInclude>
+    <ClInclude Include="Framework\Rendering\Tracks.h">
+      <Filter>Rendering\Animation</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

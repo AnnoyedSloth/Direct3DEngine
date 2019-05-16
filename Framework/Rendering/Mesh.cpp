@@ -15,6 +15,10 @@ void Mesh::createVIB()
 	FbxLoadMgr* mgr = new FbxLoadMgr();
 	mgr->importFbx("Dragon.fbx");
 
+	
+
+	if(!mgr) MessageBox(NULL, "Failed to load NPCmesh", "Vertex", MB_OK);
+
 	vertexCount = mgr->GetVertexCount();
 
 	if(FAILED(d3dDevice->CreateVertexBuffer(vertexCount * sizeof(VertexData), 0, VertexData::FVF, D3DPOOL_DEFAULT, &vBuffer, NULL)))

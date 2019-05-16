@@ -30,11 +30,11 @@ void World::initialize(LPDIRECT3DDEVICE9 d3dDevice, Camera* camera, Frustum* fru
 
 	for (unsigned int a = 0; a < objs.size(); ++a)
 	{
-		//objs[a]->initialize(d3dDevice);
+		objs[a]->initialize(d3dDevice);
 	}
 
-	myMesh = new Mesh(d3dDevice);
-    myMesh->createVIB();
+	//myMesh = new Mesh(d3dDevice);
+    //myMesh->createVIB();
 }
 
 void World::render()
@@ -42,9 +42,9 @@ void World::render()
 
 	for (auto iter = objs.begin(); iter != objs.end(); ++iter)
 	{
-		//(*iter)->render(time->deltaTime);
+		(*iter)->render(time->deltaTime);
 	}
-	myMesh->render();
+	//myMesh->render();
 	//frustum->draw(d3dDevice, camera->GetPos());
 }
 

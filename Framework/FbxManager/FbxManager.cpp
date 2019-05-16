@@ -15,7 +15,6 @@ FbxLoadMgr::~FbxLoadMgr()
 
 BOOL FbxLoadMgr::importFbx(const char* name)
 {
-	char* fileName = (char*)name;
 
 	// Instantiate FBX Manager to import
 	manager = FbxManager::Create();
@@ -33,7 +32,7 @@ BOOL FbxLoadMgr::importFbx(const char* name)
 
 	FbxImporter* importer = FbxImporter::Create(manager, "");
 
-	const bool status = importer->Initialize((char*)(fileName), -1, manager->GetIOSettings());
+	const bool status = importer->Initialize(name, -1, manager->GetIOSettings());
 
 	if (!status)
 	{
@@ -41,13 +40,18 @@ BOOL FbxLoadMgr::importFbx(const char* name)
 		return false;
 	}
 
-	scene = FbxScene::Create(manager, fileName);
+	scene = FbxScene::Create(manager, name);
+
+	//scene->CreateAnimStack();
+	//scene
+	FbxStatus status;
 
 	importer->Import(scene);
 
 	importer->Destroy();
 
 	FbxNode* rootNode = scene->GetRootNode();
+	//FbxAnimStack myStack;
 
 	loadNode(rootNode);
 }
@@ -73,6 +77,8 @@ void FbxLoadMgr::loadNode(FbxNode* node)
 			FbxSkeleton* skeleton = node->GetSkeleton();
 		}
 	}
+
+	//FbxAnimCurveNode node;
 
 	const int childCount = node->GetChildCount();
 	for (unsigned int i = 0; i < childCount; ++i)

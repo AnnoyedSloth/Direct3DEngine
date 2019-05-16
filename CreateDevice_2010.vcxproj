@@ -93,7 +93,7 @@
     <LinkIncremental>true</LinkIncremental>
     <GenerateManifest>true</GenerateManifest>
     <ExecutablePath>$(DXSDK_DIR)Utilities\bin\x86;$(ExecutablePath)</ExecutablePath>
-    <IncludePath>$(DXSDK_DIR)Include;$(IncludePath)</IncludePath>
+    <IncludePath>C:\Program Files\Autodesk\FBX\FBX SDK\2019.0\include\;$(DXSDK_DIR)Include;$(IncludePath)</IncludePath>
     <LibraryPath>$(DXSDK_DIR)Lib\x86;$(LibraryPath)</LibraryPath>
     <SourcePath>$(SourcePath)</SourcePath>
   </PropertyGroup>
@@ -142,7 +142,7 @@
       <FloatingPointModel>Fast</FloatingPointModel>
       <EnableEnhancedInstructionSet>StreamingSIMDExtensions2</EnableEnhancedInstructionSet>
       <ExceptionHandling>Sync</ExceptionHandling>
-      <AdditionalIncludeDirectories>C:\Program Files\Autodesk\FBX\FBX SDK\2019.0\include\;DXUT\Core;DXUT\Optional;$(VC_SourcePath)Framework\%(AdditionalUsingDirectories);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>DXUT\Core;DXUT\Optional;$(VC_SourcePath)Framework\%(AdditionalUsingDirectories);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AdditionalOptions> %(AdditionalOptions)</AdditionalOptions>
       <PreprocessorDefinitions>WIN32;_DEBUG;DEBUG;PROFILE;_WINDOWS;FBXSDK_SHARED;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
@@ -391,6 +391,7 @@
     <ClCompile Include="Framework\Managers\TimeManager.cpp" />
     <ClCompile Include="Framework\Rendering\DxMain.cpp" />
     <ClCompile Include="Framework\Rendering\Mesh.cpp" />
+    <ClCompile Include="Framework\Rendering\Tracks.cpp" />
     <ClCompile Include="Framework\Terrain\QuadTree.cpp" />
     <ClCompile Include="Framework\Terrain\Terrain.cpp" />
     <ClCompile Include="Framework\Utilities\Actor.cpp" />
@@ -409,8 +410,10 @@
     <ClInclude Include="Framework\Managers\InputManager.h" />
     <ClInclude Include="Framework\Managers\LogManager.h" />
     <ClInclude Include="Framework\Managers\TimeManager.h" />
+    <ClInclude Include="Framework\Rendering\AnimDefine.h" />
     <ClInclude Include="Framework\Rendering\DxMain.h" />
     <ClInclude Include="Framework\Rendering\Mesh.h" />
+    <ClInclude Include="Framework\Rendering\Tracks.h" />
     <ClInclude Include="Framework\Rendering\VertexData.h" />
     <ClInclude Include="Framework\Shader\DirectionalLight.h" />
     <ClInclude Include="Framework\Shader\Light.h" />
